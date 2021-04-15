@@ -1,19 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/</id>
+    <id>https://blog.cyan.fit</id>
     <title>cyan_blog</title>
-    <updated>2021-04-12T14:34:39.591Z</updated>
+    <updated>2021-04-15T10:24:03.977Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/"/>
-    <link rel="self" href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/atom.xml"/>
+    <link rel="alternate" href="https://blog.cyan.fit"/>
+    <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
     <subtitle>cyan的学习笔记</subtitle>
-    <logo>https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/images/avatar.png</logo>
-    <icon>https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/favicon.ico</icon>
+    <logo>https://blog.cyan.fit/images/avatar.png</logo>
+    <icon>https://blog.cyan.fit/favicon.ico</icon>
     <rights>All rights reserved 2021, cyan_blog</rights>
     <entry>
+        <title type="html"><![CDATA[给npy讲CKB]]></title>
+        <id>https://blog.cyan.fit/post/gei-npy-jiang-ckb/</id>
+        <link href="https://blog.cyan.fit/post/gei-npy-jiang-ckb/">
+        </link>
+        <updated>2021-04-14T10:22:45.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="ckb是什么nervos又是什么">CKB是什么，Nervos又是什么</h1>
+<p>CKB是Nervos Network的第一层，采用的共识机制是Proof of Work和改进的Nakamoto共识，CKB继承了比特币的架构思想，从泛化UTXO模型中创建了Cell模型，保留了比特币的一致性和简洁性。在Nervos CKB中，所有的状态都存储在Cells中，所有的计算都在链外完成，所有的验证工作都由节点处理。</p>
+<p>https://github.com/nervosnetwork/ckb</p>
+<h1 id="utxo">UTXO</h1>
+<p>在讲CKB之前先要介绍一下BlockChain的UTXO模型，是BlockChain存储用户金额的模型。</p>
+<p>在当前区块链世界中，主要有两种记录保存方式：<br>
+UTXO 模式：全称Unspent Transaction Outputs ，表明未花费的交易的输出，也就是说一个用户构建的每一笔Input（花费）都来自于用户已有的Outputs，一个Outputs在使用后不会再被使用，若有剩余以“找零”（新生成一个Output给User）的模式产生给用户。用户的Input会成为目标地址的Output。<br>
+和Account 模式。</p>
+<p>两个典型是Bitcoin 采用的是 UTXO 模型，Ethereum 采用的 Account 模型。</p>
+<p>在UTXO模型中每个用户有Input和Output</p>
+<p>这里面以force-bridge的部分代码为例：</p>
+<p>force-bridge是一个跨链项目，</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[How to build a Symbolic Execution Engine for Solidity?]]></title>
+        <id>https://blog.cyan.fit/post/how-to-build-a-symbolic-execution-engine-for-solidity/</id>
+        <link href="https://blog.cyan.fit/post/how-to-build-a-symbolic-execution-engine-for-solidity/">
+        </link>
+        <updated>2021-04-14T07:07:59.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="basic-concepts">Basic Concepts</h1>
+<h2 id="how-evm-stores-data">How EVM Stores Data</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ BlockChain 题库]]></title>
+        <id>https://blog.cyan.fit/post/blockchain-ti-ku/</id>
+        <link href="https://blog.cyan.fit/post/blockchain-ti-ku/">
+        </link>
+        <updated>2021-04-13T04:14:32.000Z</updated>
+        <content type="html"><![CDATA[<p>想刷题了，之前记录了几个待办</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[以太坊的签名算法 ECDSA详解]]></title>
+        <id>https://blog.cyan.fit/post/yi-tai-fang-de-qian-ming-suan-fa-ecdsa-xiang-jie/</id>
+        <link href="https://blog.cyan.fit/post/yi-tai-fang-de-qian-ming-suan-fa-ecdsa-xiang-jie/">
+        </link>
+        <updated>2021-04-13T00:37:00.000Z</updated>
+        <content type="html"><![CDATA[<p>以太坊<br>
+https://zhuanlan.zhihu.com/p/66794410<br>
+https://andrea.corbellini.name/2015/05/23/elliptic-curve-cryptography-finite-fields-and-discrete-logarithms/#p-must-be-prime<br>
+随机数K的选取是不能相同的，同时如果模数P不是一个素数的话，ECDSA也是可以被攻击的。</p>
+<p>常规椭圆曲线：</p>
+<p>椭圆曲线算法将会运用在有限域上的椭圆曲线所形成的循环子群上，因此，我们的算法需要以下几个参数：</p>
+<ul>
+<li>素数 p，用于确定有限域的范围</li>
+<li>椭圆曲线方程中的 a，b 参数</li>
+<li>用于生成子群的的基点 G</li>
+<li>子群的阶 n</li>
+<li>子群的辅助因子 h</li>
+</ul>
+<p>所以，算法的主要参数可以定义为一个六元组 (p, a, b, G, n, h)</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[training]]></title>
-        <id>https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/defcon-lian-xi/</id>
-        <link href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/defcon-lian-xi/">
+        <id>https://blog.cyan.fit/post/defcon-lian-xi/</id>
+        <link href="https://blog.cyan.fit/post/defcon-lian-xi/">
         </link>
         <updated>2021-04-06T13:44:24.000Z</updated>
         <summary type="html"><![CDATA[<p>前言：<br>
@@ -123,58 +184,119 @@ https://archive.ooo/c/vitor/300/
 <p>安卓逆向题，作者是一个从事安卓逆向相关的人：<br>
 https://reyammer.io/<br>
 找到了wp：https://eybisi.run/DEF-CON-Quals-2019-Vitor/</p>
-<p>问题点在于 加密的时候是没有mod P的，但是解密的时候是在mod P域下的</p>
-<p>题目使用100*5的矩阵A对填充为5*1明文向量C(向量第一个数是明文)加密得到100*1的向量B。在系统中保存部分向量数据b1,b2……，并将剩下的向量数据b3,b4……分发。当我们和系统由于5个向量数据b1,b2,b3,b4,b5。我们就可以将A中对应向量行组合成一个新矩阵，并求得逆矩阵。我们将的第一行(s1,s2,s3,s4,s5)和密文向量(b1,b2,b3,b4,b5)相乘即为明文。即m=s1*b1+s2*b2+s3*b3+s4*b4+s5*b5。在redeem_actual_flag中系统中有两个向量B的数据bn,bm。和用户发送3个向量B的数据组合解密。我们可以将b5更改为b5+a*s5^-1。这时我们发现解密结果变为m+a。已知m的最低为是OOO{，并且在redeem_actual_flag()中进行检验flag的头部是OOO{。由于整个操作在模p之下，所以我们尝试改变a，且不改变m的低位“OOO{&quot;。当m+a&gt;=p的时候。我们发现解密的结果结尾不再是OOO{。当m+a&lt;p的时候，我们发现解密的结果结尾是OOO{。这时我们找到临界值a，计算p-a获得m。</p>
-<p>首先我们首先使用share_actual_flag()获得一组密文[(numi,bnumi),(numj,bnumj),(numk,bnumk)]</p>
-<p>这里我们发现在上述方案中我们需要知道p。我们首先在相同的flagid下输入密文[(0,1),(1,0),(2,0),(3,0),(4,0)]。我们可以得到s1。然后我们更改密文为[(0,2),(1,0),(2,0),(3,0),(4,0)]……[(0,n),(1,0),(2,0),(3,0),(4,0)]。获得a<em>s1。当我们发现a</em>s1&gt;a*s1mopp。我们相减获得p。</p>
-<p>其次我们需要知道s5<sup>-1是多少。我们可以尝试输入向量(0,0,0,0,1)从而获得s5，继而获得s5</sup>-1。我们需要知道在redeem_actual_flag()中系统中存储的bn和bm具体是对应哪一行。所以我们需要进行爆破。不断输入密文[(i,0),(j,0),(numi,0),(numj,0),(numk,1)]解出a5，再计算a5<sup>-1。我们将b5改为b5+(1&lt;&lt;32)*s5</sup>-1。当验证成功时。说明我们爆破成功，已经获得a5^-1。我们再按照上面的方案求解处flag</p>
+<p>首先映入眼帘的是cf函数 它获取输入并进行了第一步的处理：</p>
+<pre><code class="language-java">public static boolean cf(MainActivity paramMainActivity, String paramString) {
+    try {
+      cfa((Context)paramMainActivity, p1EncFn);
+      cfa((Context)paramMainActivity, p5EncFn);
+      cfa((Context)paramMainActivity, randEncFn);
+      cfa((Context)paramMainActivity, rand2EncFn);
+      if (paramString.startsWith(&quot;OOO{&quot;) &amp;&amp; paramString.endsWith(&quot;}&quot;) &amp;&amp; paramString.length() == 45) {
+        byte[] arrayOfByte = g0(paramString.substring(4, 44));
+        File file = new File();
+        this(paramMainActivity.getFilesDir(), p1EncFn);
+        if (!cf((Context)paramMainActivity, dp1((Context)paramMainActivity, file, arrayOfByte), paramString))
+          return false; 
+        file = new File();
+        this(paramMainActivity.getFilesDir(), &quot;bam.html&quot;);
+        WebView webView = paramMainActivity.mWebView;
+        StringBuilder stringBuilder = new StringBuilder();
+        this();
+        stringBuilder.append(&quot;file:///&quot;);
+        stringBuilder.append(file.getAbsolutePath());
+        stringBuilder.append(&quot;?flag=&quot;);
+        stringBuilder.append(Uri.encode(paramString));
+        webView.loadUrl(stringBuilder.toString());
+        return mValid;
+      } 
+    } catch (Exception exception) {}
+    return false;
+  }
+</code></pre>
+<p>那我们现在看看g0做了什么：<br>
+g0的工作：</p>
+<pre><code>byte[0] = flag[0]^flag[8]^flag[16]^flag[24]^flag[32]
+byte[1] = flag[1]^flag[9]^flag[17]^flag[25]^flag[33]
+byte[2] = flag[2]^flag[10]^flag[18]^flag[26]^flag[34]
+byte[3] = flag[3]^flag[11]^flag[19]^flag[27]^flag[35]
+</code></pre>
+<p>下面看看df1做了什么：</p>
+<p>首先对flag中间部分进行MD5</p>
+<pre><code class="language-java">// 这里的
+private static File dp1(Context paramContext, File paramFile, byte[] paramArrayOfbyte) throws Exception {
+    byte[] arrayOfByte = hash(paramArrayOfbyte);
+    paramArrayOfbyte = Files.readAllBytes(paramFile.toPath());
+    try {
+      IvParameterSpec ivParameterSpec = new IvParameterSpec();
+      this(initVector);
+      //生成KEY 使用上一步四个字节
+      SecretKeySpec secretKeySpec = new SecretKeySpec();
+      this(arrayOfByte, &quot;AES&quot;);
+      Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5PADDING&quot;);
+      cipher.init(2, secretKeySpec, ivParameterSpec);
+      paramArrayOfbyte = cipher.doFinal(paramArrayOfbyte);
+      File file = new File();
+      // 加密第二个常量字符串
+      this(paramContext.getFilesDir(), p1Fn);
+      FileOutputStream fileOutputStream = new FileOutputStream();
+      this(file);
+      fileOutputStream.write(paramArrayOfbyte, 0, paramArrayOfbyte.length);
+      fileOutputStream.flush();
+      fileOutputStream.close();
+      return file;
+    } catch (Exception exception) {
+      return null;
+    } 
+  }
+</code></pre>
+<p>表意不明的API可以在这里查询</p>
+<p>https://docs.oracle.com/javase/8/docs/api/</p>
+<figure data-type="image" tabindex="1"><img src="https://blog.cyan.fit/post-images/1618362253127.png" alt="" loading="lazy"></figure>
+<p>根据opmode 这里实际上执行的是一个解密过程，4byte的hash感觉应该可以爆破</p>
+<p>安卓AES加密，我觉得在编译器里她之所以这样写是在表示下面的语句是上面语句的参数</p>
+<pre><code class="language-java">SecretKeySpec secretKeySpec = new SecretKeySpec();
+this(arrayOfByte, &quot;AES&quot;);
+</code></pre>
+<p>接下来是cf函数，这里面的DexClassLoader是恶意安卓程序常见的调用函数</p>
+<pre><code class="language-java">  private static boolean cf(Context paramContext, File paramFile, String paramString) {
+    File file = new File(paramContext.getFilesDir().getAbsolutePath());
+    DexClassLoader dexClassLoader = new DexClassLoader(paramFile.getAbsolutePath(), file.getAbsolutePath(), file.getAbsolutePath(), ClassLoader.getSystemClassLoader());
+    boolean bool = false;
+    try {
+      // 加载ooo.p1.P1类并从该类中获取cf function的执行方法
+      Class clazz = dexClassLoader.loadClass(&quot;ooo.p1.P1&quot;);
+      boolean bool1 = ((Boolean)clazz.getDeclaredMethod(&quot;cf&quot;, new Class[] { Context.class, String.class }).invoke(clazz, new Object[] { paramContext, paramString })).booleanValue();
+      bool = bool1;
+    } catch (Exception exception) {}
+    return bool;
+  }
+</code></pre>
+<p>调用ooo.p1.P1类，并从该类中调用一个函数。ooo.p1.P1类调用和一个函数是从类中调用。</p>
+<p>没有办法找到ooo.p1.P1的实现...<br>
+从代码里查看DEX动态加载的位置需要进行一些操作：</p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[关于]]></title>
-        <id>https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/about/</id>
-        <link href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/about/">
+        <id>https://blog.cyan.fit/post/about/</id>
+        <link href="https://blog.cyan.fit/post/about/">
         </link>
         <updated>2019-01-25T11:09:48.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
 <p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
 </blockquote>
 <h2 id="关于本站">🏠 关于本站</h2>
+<p>cyan小朋友的技术站</p>
 <h2 id="博主是谁">👨‍💻 博主是谁</h2>
+<ul>
+<li>cyan</li>
+<li>BUPT</li>
+<li>Dubhe</li>
+<li>BlockChain &amp; Crypto</li>
+</ul>
 <h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
+<p>BlockChain&amp;Crypto&amp;Pwn</p>
 <h2 id="联系我呀">📬 联系我呀</h2>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/hello-gridea/</id>
-        <link href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>

@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>关于 | cyan_blog</title>
+<title>以太坊的签名算法 ECDSA详解 | cyan_blog</title>
 
 <link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1618482241346">
 
@@ -186,35 +186,45 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    关于
+                    以太坊的签名算法 ECDSA详解
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2019-01-25 ·
+                        · 2021-04-13 ·
                     </time>
+                    
+                        <a href="https://blog.cyan.fit/tag/FsVtZlK6q/" class="post-tags">
+                            # BlockChain
+                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>cyan小朋友的技术站</p>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
+                    <p>以太坊<br>
+https://zhuanlan.zhihu.com/p/66794410<br>
+https://andrea.corbellini.name/2015/05/23/elliptic-curve-cryptography-finite-fields-and-discrete-logarithms/#p-must-be-prime<br>
+随机数K的选取是不能相同的，同时如果模数P不是一个素数的话，ECDSA也是可以被攻击的。</p>
+<p>常规椭圆曲线：</p>
+<p>椭圆曲线算法将会运用在有限域上的椭圆曲线所形成的循环子群上，因此，我们的算法需要以下几个参数：</p>
 <ul>
-<li>cyan</li>
-<li>BUPT</li>
-<li>Dubhe</li>
-<li>BlockChain &amp; Crypto</li>
+<li>素数 p，用于确定有限域的范围</li>
+<li>椭圆曲线方程中的 a，b 参数</li>
+<li>用于生成子群的的基点 G</li>
+<li>子群的阶 n</li>
+<li>子群的辅助因子 h</li>
 </ul>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<p>BlockChain&amp;Crypto&amp;Pwn</p>
-<h2 id="联系我呀">📬 联系我呀</h2>
+<p>所以，算法的主要参数可以定义为一个六元组 (p, a, b, G, n, h)</p>
 
                 </div>
             </article>
         </div>
 
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://blog.cyan.fit/post/defcon-lian-xi/" class="post-title gt-a-link">
+                    training
+                </a>
+            </div>
         
 
         

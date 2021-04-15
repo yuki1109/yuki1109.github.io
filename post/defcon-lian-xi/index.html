@@ -6,10 +6,10 @@
 
 <title>training | cyan_blog</title>
 
-<link rel="shortcut icon" href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com//favicon.ico?v=1618238073633">
+<link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1618482241346">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com//styles/main.css">
+<link rel="stylesheet" href="https://blog.cyan.fit/styles/main.css">
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
 
 <style>
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618238073633"
+            <form id="gridea-search-form" style="position: relative" data-update="1618482241346"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -299,11 +299,96 @@ https://archive.ooo/c/vitor/300/
 <p>安卓逆向题，作者是一个从事安卓逆向相关的人：<br>
 https://reyammer.io/<br>
 找到了wp：https://eybisi.run/DEF-CON-Quals-2019-Vitor/</p>
-<p>问题点在于 加密的时候是没有mod P的，但是解密的时候是在mod P域下的</p>
-<p>题目使用100*5的矩阵A对填充为5*1明文向量C(向量第一个数是明文)加密得到100*1的向量B。在系统中保存部分向量数据b1,b2……，并将剩下的向量数据b3,b4……分发。当我们和系统由于5个向量数据b1,b2,b3,b4,b5。我们就可以将A中对应向量行组合成一个新矩阵，并求得逆矩阵。我们将的第一行(s1,s2,s3,s4,s5)和密文向量(b1,b2,b3,b4,b5)相乘即为明文。即m=s1*b1+s2*b2+s3*b3+s4*b4+s5*b5。在redeem_actual_flag中系统中有两个向量B的数据bn,bm。和用户发送3个向量B的数据组合解密。我们可以将b5更改为b5+a*s5^-1。这时我们发现解密结果变为m+a。已知m的最低为是OOO{，并且在redeem_actual_flag()中进行检验flag的头部是OOO{。由于整个操作在模p之下，所以我们尝试改变a，且不改变m的低位“OOO{&quot;。当m+a&gt;=p的时候。我们发现解密的结果结尾不再是OOO{。当m+a&lt;p的时候，我们发现解密的结果结尾是OOO{。这时我们找到临界值a，计算p-a获得m。</p>
-<p>首先我们首先使用share_actual_flag()获得一组密文[(numi,bnumi),(numj,bnumj),(numk,bnumk)]</p>
-<p>这里我们发现在上述方案中我们需要知道p。我们首先在相同的flagid下输入密文[(0,1),(1,0),(2,0),(3,0),(4,0)]。我们可以得到s1。然后我们更改密文为[(0,2),(1,0),(2,0),(3,0),(4,0)]……[(0,n),(1,0),(2,0),(3,0),(4,0)]。获得a<em>s1。当我们发现a</em>s1&gt;a*s1mopp。我们相减获得p。</p>
-<p>其次我们需要知道s5<sup>-1是多少。我们可以尝试输入向量(0,0,0,0,1)从而获得s5，继而获得s5</sup>-1。我们需要知道在redeem_actual_flag()中系统中存储的bn和bm具体是对应哪一行。所以我们需要进行爆破。不断输入密文[(i,0),(j,0),(numi,0),(numj,0),(numk,1)]解出a5，再计算a5<sup>-1。我们将b5改为b5+(1&lt;&lt;32)*s5</sup>-1。当验证成功时。说明我们爆破成功，已经获得a5^-1。我们再按照上面的方案求解处flag</p>
+<p>首先映入眼帘的是cf函数 它获取输入并进行了第一步的处理：</p>
+<pre><code class="language-java">public static boolean cf(MainActivity paramMainActivity, String paramString) {
+    try {
+      cfa((Context)paramMainActivity, p1EncFn);
+      cfa((Context)paramMainActivity, p5EncFn);
+      cfa((Context)paramMainActivity, randEncFn);
+      cfa((Context)paramMainActivity, rand2EncFn);
+      if (paramString.startsWith(&quot;OOO{&quot;) &amp;&amp; paramString.endsWith(&quot;}&quot;) &amp;&amp; paramString.length() == 45) {
+        byte[] arrayOfByte = g0(paramString.substring(4, 44));
+        File file = new File();
+        this(paramMainActivity.getFilesDir(), p1EncFn);
+        if (!cf((Context)paramMainActivity, dp1((Context)paramMainActivity, file, arrayOfByte), paramString))
+          return false; 
+        file = new File();
+        this(paramMainActivity.getFilesDir(), &quot;bam.html&quot;);
+        WebView webView = paramMainActivity.mWebView;
+        StringBuilder stringBuilder = new StringBuilder();
+        this();
+        stringBuilder.append(&quot;file:///&quot;);
+        stringBuilder.append(file.getAbsolutePath());
+        stringBuilder.append(&quot;?flag=&quot;);
+        stringBuilder.append(Uri.encode(paramString));
+        webView.loadUrl(stringBuilder.toString());
+        return mValid;
+      } 
+    } catch (Exception exception) {}
+    return false;
+  }
+</code></pre>
+<p>那我们现在看看g0做了什么：<br>
+g0的工作：</p>
+<pre><code>byte[0] = flag[0]^flag[8]^flag[16]^flag[24]^flag[32]
+byte[1] = flag[1]^flag[9]^flag[17]^flag[25]^flag[33]
+byte[2] = flag[2]^flag[10]^flag[18]^flag[26]^flag[34]
+byte[3] = flag[3]^flag[11]^flag[19]^flag[27]^flag[35]
+</code></pre>
+<p>下面看看df1做了什么：</p>
+<p>首先对flag中间部分进行MD5</p>
+<pre><code class="language-java">// 这里的
+private static File dp1(Context paramContext, File paramFile, byte[] paramArrayOfbyte) throws Exception {
+    byte[] arrayOfByte = hash(paramArrayOfbyte);
+    paramArrayOfbyte = Files.readAllBytes(paramFile.toPath());
+    try {
+      IvParameterSpec ivParameterSpec = new IvParameterSpec();
+      this(initVector);
+      //生成KEY 使用上一步四个字节
+      SecretKeySpec secretKeySpec = new SecretKeySpec();
+      this(arrayOfByte, &quot;AES&quot;);
+      Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5PADDING&quot;);
+      cipher.init(2, secretKeySpec, ivParameterSpec);
+      paramArrayOfbyte = cipher.doFinal(paramArrayOfbyte);
+      File file = new File();
+      // 加密第二个常量字符串
+      this(paramContext.getFilesDir(), p1Fn);
+      FileOutputStream fileOutputStream = new FileOutputStream();
+      this(file);
+      fileOutputStream.write(paramArrayOfbyte, 0, paramArrayOfbyte.length);
+      fileOutputStream.flush();
+      fileOutputStream.close();
+      return file;
+    } catch (Exception exception) {
+      return null;
+    } 
+  }
+</code></pre>
+<p>表意不明的API可以在这里查询</p>
+<p>https://docs.oracle.com/javase/8/docs/api/</p>
+<figure data-type="image" tabindex="1"><img src="https://blog.cyan.fit/post-images/1618362253127.png" alt="" loading="lazy"></figure>
+<p>根据opmode 这里实际上执行的是一个解密过程，4byte的hash感觉应该可以爆破</p>
+<p>安卓AES加密，我觉得在编译器里她之所以这样写是在表示下面的语句是上面语句的参数</p>
+<pre><code class="language-java">SecretKeySpec secretKeySpec = new SecretKeySpec();
+this(arrayOfByte, &quot;AES&quot;);
+</code></pre>
+<p>接下来是cf函数，这里面的DexClassLoader是恶意安卓程序常见的调用函数</p>
+<pre><code class="language-java">  private static boolean cf(Context paramContext, File paramFile, String paramString) {
+    File file = new File(paramContext.getFilesDir().getAbsolutePath());
+    DexClassLoader dexClassLoader = new DexClassLoader(paramFile.getAbsolutePath(), file.getAbsolutePath(), file.getAbsolutePath(), ClassLoader.getSystemClassLoader());
+    boolean bool = false;
+    try {
+      // 加载ooo.p1.P1类并从该类中获取cf function的执行方法
+      Class clazz = dexClassLoader.loadClass(&quot;ooo.p1.P1&quot;);
+      boolean bool1 = ((Boolean)clazz.getDeclaredMethod(&quot;cf&quot;, new Class[] { Context.class, String.class }).invoke(clazz, new Object[] { paramContext, paramString })).booleanValue();
+      bool = bool1;
+    } catch (Exception exception) {}
+    return bool;
+  }
+</code></pre>
+<p>调用ooo.p1.P1类，并从该类中调用一个函数。ooo.p1.P1类调用和一个函数是从类中调用。</p>
+<p>没有办法找到ooo.p1.P1的实现...<br>
+从代码里查看DEX动态加载的位置需要进行一些操作：</p>
 
                 </div>
             </article>
@@ -312,7 +397,7 @@ https://reyammer.io/<br>
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com/post/about/" class="post-title gt-a-link">
+                <a href="https://blog.cyan.fit/post/about/" class="post-title gt-a-link">
                     关于
                 </a>
             </div>
@@ -346,7 +431,7 @@ https://reyammer.io/<br>
     </div>
     <div>
         Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://coding-pages-bucket-3542312-8538286-15191-551341-1257247974.cos-website.ap-hongkong.myqcloud.com//atom.xml" target="_blank">RSS</a></a>
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://blog.cyan.fit/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 
