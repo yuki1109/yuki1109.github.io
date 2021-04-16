@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>标签 | cyan_blog</title>
+<title>Flash Boy 2.0 阅读理解 | cyan_blog</title>
 
 <link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1618568006644">
 
@@ -33,11 +33,11 @@
 <!--<script src="media/scripts/index.js"></script>-->
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
-    <div class="main-content">
-        <style>
+    <style>
     /* 导航栏样式 */
     .navbar {
         position: relative;
@@ -182,19 +182,67 @@
         }
     }
 </script>
-        <div class="post-container">
-            <div class="post-detail gt-bg-theme-color-first">
-                <article class="gt-post-content">
-                    <h2 class="post-title">标签</h2>
-        <div class="tags-container">
-            
-                <a class="tag gt-c-content-color-first gt-a-link"
-                   href="https://blog.cyan.fit/tag/FsVtZlK6q/">#BlockChain</a>
-            
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Flash Boy 2.0 阅读理解
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-04-15 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>论文《Flash Boys 2.0: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges》</p>
+<!-- more -->
+<h1 id="intrudoction">Intrudoction</h1>
+<ul>
+<li>
+<h2 id="几个名次解释">几个名次解释：</h2>
+<ul>
+<li>PGA：priority gas auctions，gas优先的拍卖，使用较高的gas来获得更早的执行顺序</li>
+<li>MEV：miner executable value，MEV的一部分特定费用来自于 ordering optimization fees(OO fees) ，排序优化费用，矿工通过优化排序而获得更高额的收入</li>
+</ul>
+</li>
+<li>两种引入的攻击：
+<ul>
+<li>Fee-based forking attacks</li>
+<li>Time-bandit attacks</li>
+</ul>
+</li>
+</ul>
+<p>引发的两个思考：</p>
+<ol>
+<li>共识层对合约层的影响</li>
+<li>P2P网络层对上层应用层的影响</li>
+</ol>
+<p>几个性质：<br>
+智能合约使交易具有原子性：智能合约的存在允许交易者原子地执行一些跨交易所的交易，比如在一个交易所以2的价格买币在另一个交易所以价格3卖出</p>
+<p>研究方法，在P2P network层面获取接收到的address相同且</p>
+<p>一个问题，在sandwitch attack里面是如何保证捆绑的三条交易全部执行成功的，这看似是不可行的<br>
+使用了不同的节点 fork了go-ethereum 收集了9个月的数据，因为失败的bid交易在被p2p网络丢弃后就没有了痕迹。</p>
+
+                </div>
+            </article>
         </div>
-    </article>
-</div>
-</div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://blog.cyan.fit/post/gei-npy-jiang-ckb/" class="post-title gt-a-link">
+                    给npy讲CKB
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">cyan的学习笔记</div>
     <div class="social-container">

@@ -1,22 +1,201 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://blog.cyan.fit</id>
-    <title>cyan_blog</title>
-    <updated>2021-04-16T10:13:28.341Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://blog.cyan.fit"/>
-    <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
-    <subtitle>cyan的学习笔记</subtitle>
-    <logo>https://blog.cyan.fit/images/avatar.png</logo>
-    <icon>https://blog.cyan.fit/favicon.ico</icon>
-    <rights>All rights reserved 2021, cyan_blog</rights>
-    <entry>
-        <title type="html"><![CDATA[AMM 建模]]></title>
-        <id>https://blog.cyan.fit/post/amm-jian-mo/</id>
-        <link href="https://blog.cyan.fit/post/amm-jian-mo/">
-        </link>
-        <updated>2021-04-16T03:02:56.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="amm-建模">AMM 建模</h1>
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>AMM 建模 | cyan_blog</title>
+
+<link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1618568006644">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.cyan.fit/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            cyan_blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    区块链
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    CTF
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1618568006644"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    AMM 建模
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-04-16 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="amm-建模">AMM 建模</h1>
 <h2 id="用户行为定义">用户行为定义</h2>
 <p>AMM可以建模为一组token的组合：</p>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mi>o</mi><mi>o</mi><mi>l</mi><mo>=</mo><mo>{</mo><msub><mi>T</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>T</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>T</mi><mi>i</mi></msub><mo>}</mo><mspace linebreak="newline"></mspace><mi>R</mi><mi>e</mi><mi>s</mi><mi>e</mi><mi>r</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>s</mi><mo>=</mo><mo>{</mo><msub><mi>r</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>r</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo>}</mo><mspace linebreak="newline"></mspace><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>l</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">Pool = \{T_0, T_1, ... ,T_i\}  \\
@@ -178,333 +357,57 @@ Require[ (r_0 + \Delta r_0 - \delta 0 )* (r_1 + \Delta r_1 - \delta 1) * (1000**
 Transfer（update），AddLiquidity，RemoveLiquidity，Swap<br>
 我们可以构建攻击者可能的攻击路径</p>
 <h1 id="关于手续费的考虑">关于手续费的考虑</h1>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Flash Boy 2.0 阅读理解]]></title>
-        <id>https://blog.cyan.fit/post/flash-boy-20-yue-du-li-jie/</id>
-        <link href="https://blog.cyan.fit/post/flash-boy-20-yue-du-li-jie/">
-        </link>
-        <updated>2021-04-15T09:51:55.000Z</updated>
-        <summary type="html"><![CDATA[<p>论文《Flash Boys 2.0: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges》</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>论文《Flash Boys 2.0: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges》</p>
-<!-- more -->
-<h1 id="intrudoction">Intrudoction</h1>
-<ul>
-<li>
-<h2 id="几个名次解释">几个名次解释：</h2>
-<ul>
-<li>PGA：priority gas auctions，gas优先的拍卖，使用较高的gas来获得更早的执行顺序</li>
-<li>MEV：miner executable value，MEV的一部分特定费用来自于 ordering optimization fees(OO fees) ，排序优化费用，矿工通过优化排序而获得更高额的收入</li>
-</ul>
-</li>
-<li>两种引入的攻击：
-<ul>
-<li>Fee-based forking attacks</li>
-<li>Time-bandit attacks</li>
-</ul>
-</li>
-</ul>
-<p>引发的两个思考：</p>
-<ol>
-<li>共识层对合约层的影响</li>
-<li>P2P网络层对上层应用层的影响</li>
-</ol>
-<p>几个性质：<br>
-智能合约使交易具有原子性：智能合约的存在允许交易者原子地执行一些跨交易所的交易，比如在一个交易所以2的价格买币在另一个交易所以价格3卖出</p>
-<p>研究方法，在P2P network层面获取接收到的address相同且</p>
-<p>一个问题，在sandwitch attack里面是如何保证捆绑的三条交易全部执行成功的，这看似是不可行的<br>
-使用了不同的节点 fork了go-ethereum 收集了9个月的数据，因为失败的bid交易在被p2p网络丢弃后就没有了痕迹。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[给npy讲CKB]]></title>
-        <id>https://blog.cyan.fit/post/gei-npy-jiang-ckb/</id>
-        <link href="https://blog.cyan.fit/post/gei-npy-jiang-ckb/">
-        </link>
-        <updated>2021-04-14T10:22:45.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="ckb是什么nervos又是什么">CKB是什么，Nervos又是什么</h1>
-<p>CKB是Nervos Network的第一层，采用的共识机制是Proof of Work和改进的Nakamoto共识，CKB继承了比特币的架构思想，从泛化UTXO模型中创建了Cell模型，保留了比特币的一致性和简洁性。在Nervos CKB中，所有的状态都存储在Cells中，所有的计算都在链外完成，所有的验证工作都由节点处理。</p>
-<p>https://github.com/nervosnetwork/ckb</p>
-<h1 id="utxo">UTXO</h1>
-<p>在讲CKB之前先要介绍一下BlockChain的UTXO模型，是BlockChain存储用户金额的模型。</p>
-<p>在当前区块链世界中，主要有两种记录保存方式：<br>
-UTXO 模式：全称Unspent Transaction Outputs ，表明未花费的交易的输出，也就是说一个用户构建的每一笔Input（花费）都来自于用户已有的Outputs，一个Outputs在使用后不会再被使用，若有剩余以“找零”（新生成一个Output给User）的模式产生给用户。用户的Input会成为目标地址的Output。<br>
-和Account 模式。</p>
-<p>两个典型是Bitcoin 采用的是 UTXO 模型，Ethereum 采用的 Account 模型。</p>
-<p>在UTXO模型中每个用户有Input和Output</p>
-<p>这里面以force-bridge的部分代码为例：</p>
-<p>force-bridge是一个跨链项目，</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[How to build a Symbolic Execution Engine for Solidity?]]></title>
-        <id>https://blog.cyan.fit/post/how-to-build-a-symbolic-execution-engine-for-solidity/</id>
-        <link href="https://blog.cyan.fit/post/how-to-build-a-symbolic-execution-engine-for-solidity/">
-        </link>
-        <updated>2021-04-14T07:07:59.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="basic-concepts">Basic Concepts</h1>
-<h2 id="how-evm-stores-data">How EVM Stores Data</h2>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ BlockChain 题库]]></title>
-        <id>https://blog.cyan.fit/post/blockchain-ti-ku/</id>
-        <link href="https://blog.cyan.fit/post/blockchain-ti-ku/">
-        </link>
-        <updated>2021-04-13T04:14:32.000Z</updated>
-        <content type="html"><![CDATA[<p>想刷题了，之前记录了几个待办</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[以太坊的签名算法 ECDSA详解]]></title>
-        <id>https://blog.cyan.fit/post/yi-tai-fang-de-qian-ming-suan-fa-ecdsa-xiang-jie/</id>
-        <link href="https://blog.cyan.fit/post/yi-tai-fang-de-qian-ming-suan-fa-ecdsa-xiang-jie/">
-        </link>
-        <updated>2021-04-13T00:37:00.000Z</updated>
-        <content type="html"><![CDATA[<p>以太坊<br>
-https://zhuanlan.zhihu.com/p/66794410<br>
-https://andrea.corbellini.name/2015/05/23/elliptic-curve-cryptography-finite-fields-and-discrete-logarithms/#p-must-be-prime<br>
-随机数K的选取是不能相同的，同时如果模数P不是一个素数的话，ECDSA也是可以被攻击的。</p>
-<p>常规椭圆曲线：</p>
-<p>椭圆曲线算法将会运用在有限域上的椭圆曲线所形成的循环子群上，因此，我们的算法需要以下几个参数：</p>
-<ul>
-<li>素数 p，用于确定有限域的范围</li>
-<li>椭圆曲线方程中的 a，b 参数</li>
-<li>用于生成子群的的基点 G</li>
-<li>子群的阶 n</li>
-<li>子群的辅助因子 h</li>
-</ul>
-<p>所以，算法的主要参数可以定义为一个六元组 (p, a, b, G, n, h)</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[training]]></title>
-        <id>https://blog.cyan.fit/post/defcon-lian-xi/</id>
-        <link href="https://blog.cyan.fit/post/defcon-lian-xi/">
-        </link>
-        <updated>2021-04-06T13:44:24.000Z</updated>
-        <summary type="html"><![CDATA[<p>前言：<br>
-wp内容需要包含出题人出题风格评价、出题人研究动向，包括论文、开源工具、博客、演讲等，并完成对今年出题人出题的预测</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>前言：<br>
-wp内容需要包含出题人出题风格评价、出题人研究动向，包括论文、开源工具、博客、演讲等，并完成对今年出题人出题的预测</p>
-<!-- more -->
-<h1 id="ooo-flag-sharing">ooo-flag-sharing</h1>
-<!--
-https://zhuanlan.zhihu.com/p/353042089
-https://gist.github.com/nomeaning777/8c8cc446fdf1e7a151ae30d72600c312
- -->
-<p>题目给出四个功能，密文分享的加解密过程如下。题目在加密过程中会首先生成一个256位素数P和一个100*5的矩阵M。</p>
-<ul>
-<li>功能1<br>
-选手可以提供一个secret，然后程序将secret的16进制形式的md5哈希值的前6个字符作为secret_id，选手可以设置将其分享给num个人（num&gt;=5），程序会根据secret的值生成num个share，然后将其随机置换，置换后的第一个share的值会保存在服务器上的该用户文件夹下的secret_id.1文件中，其余的share会打印给选手。</li>
-<li>功能2<br>
-选手可以提供一个secret_id，再提供若干个share，服务器会使用该secret_id对应的一个share和选手提供的share来尝试恢复出secret，并将恢复出的内容打印给选手。</li>
-<li>功能3<br>
-服务器将FLAG作为secret来生成5个share，然后将其随机置换，置换后的第一个share的值会保存在服务器上的该用户文件夹下的secret_id.1文件中，第二个share的值会保存在服务器上的该用户文件夹下的secret_id.2文件中，其余的3个share会打印给选手。同时程序随机生成一个3字节的字节串，将其16进制形式的字符串来作为secret_id。</li>
-<li>功能4<br>
-选手可以提供一个secret_id，再提供若干个share，服务器会使用该secret_id对应的两个share和选手提供的share来尝试恢复出secret，若恢复出的内容以b&quot;OOO{&quot;开头，则会打印给选手恢复成功的提示。<br>
-加密过程实际上是在用</li>
-</ul>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>h</mi><mi>a</mi><mi>r</mi><mi>e</mi><mi>s</mi><mo>=</mo><mi>M</mi><mo>∗</mo><mi>X</mi><mi>X</mi><mo>=</mo><mo>[</mo><mi>s</mi><mi>e</mi><mi>c</mi><mi>r</mi><mi>e</mi><mi>t</mi><mo separator="true">,</mo><mi>r</mi><mn>0</mn><mo separator="true">,</mo><mi>r</mi><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mn>2</mn><mo separator="true">,</mo><mi>r</mi><mn>3</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">shares = M*X  X = [secret,r0,r1,r2,r3] 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">3</span><span class="mclose">]</span></span></span></span></span></p>
-<p>对于一个被加密的消息来说，加密过程为</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>s</mi><mi>g</mi><mo>=</mo><msub><mi>s</mi><mn>1</mn></msub><mo>∗</mo><msub><mi>m</mi><mn>1</mn></msub><mo>+</mo><msub><mi>s</mi><mn>2</mn></msub><mo>∗</mo><msub><mi>m</mi><mn>2</mn></msub><mo>+</mo><msub><mi>s</mi><mn>3</mn></msub><mo>∗</mo><msub><mi>m</mi><mn>3</mn></msub><mo>+</mo><msub><mi>s</mi><mn>4</mn></msub><mo>∗</mo><msub><mi>m</mi><mn>4</mn></msub><mo>+</mo><msub><mi>s</mi><mn>5</mn></msub><mo>∗</mo><msub><mi>m</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">msg=s_1*m_1+s_2*m_2+s_3*m_3+s_4*m_4+s_5*m_5 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p>对应代码如下</p>
-<pre><code class="language-python"># N = 100； K = 5
-def split_secret(key, n, k, matrix):
-    assert len(matrix) == n, &quot;misshaped matrix&quot;
-    assert len(matrix[0]) == k, &quot;misshaped matrix&quot;
-    x = [ int.from_bytes(key, byteorder='little') ]
-    # append
-    for _ in range(k-1):
-        x.append(random.randint(0, P))
-    x = np.array(x)
-    # dot两个数组的点积
-    # 行数和值的元组2*100
-    # 第一行的加密结果被保存到share中
-    shares = [ (n,int(i)) for n,i in enumerate(np.dot(matrix, x)) ]
-    return shares[1:]
-</code></pre>
-<p>首先对于功能3来说，flag的加密过程如下：</p>
-<pre><code class="language-python">def share_actual_flag():
-    the_flag = open(os.path.join(os.path.dirname(__file__), &quot;flag&quot;), &quot;rb&quot;).read().strip()
-    shares = split_secret(the_flag, N, K, M)
-    sanity_flag = reconstitute_secret(shares, M).strip(b&quot;\x00&quot;)
-    assert sanity_flag == the_flag
-    random.shuffle(shares)
 
-    secret_id = os.urandom(3).hex()
-    with open(os.path.join(SHAREDIR, secret_id+&quot;.1&quot;), &quot;w&quot;) as f:
-        f.write(str(shares[0]))
-    with open(os.path.join(SHAREDIR, secret_id+&quot;.2&quot;), &quot;w&quot;) as f:
-        f.write(str(shares[1]))
+                </div>
+            </article>
+        </div>
 
-    print(&quot;Our secret's ID is:&quot;, secret_id)
-    print(&quot;Your shares are:&quot;, shares[2:K])
-    print(&quot;Our stored shares are quite safe with us!&quot;)
-</code></pre>
-<p>解密的过程可以表述如下，其中keys是用户输入的share，解密的过程实际上是在表示</p>
-<pre><code class="language-python">def reconstitute_secret(keys, matrix):
-        # k = 5
-        k = len(matrix[0])
-        assert k &lt;= len(keys), &quot;not enough keys&quot;
-        assert np.linalg.matrix_rank(matrix) == k, &quot;linearly dependent keys&quot;
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://blog.cyan.fit/post/flash-boy-20-yue-du-li-jie/" class="post-title gt-a-link">
+                    Flash Boy 2.0 阅读理解
+                </a>
+            </div>
+        
 
-        subkeys = sorted(keys[:k])
-        submatrix = [ matrix[e[0]] for e in subkeys ]
-        subshares = [ e[-1] for e in subkeys ]
-        det = calc_det(np.array(submatrix))
-        # 逆矩阵
-        inv_float = np.linalg.inv(submatrix)
-        # round函数返回浮点数的四舍五入值
-        key = (int(sum([ i*j for i,j in zip([ i*pow(det, -1, P) 
-                                for i in [ int(round(h)) for h in [ det * inv_float[0][i] 
-                                    for i in range(k) ] ] ], subshares) ]
-                        )) 
-                            % P).to_bytes(32, byteorder='little')
-        return key
-</code></pre>
-<p>flag的解密过程满足如下等式：</p>
-<p>首先需要获得P的值。<br>
-加密的过程可以看作是：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mn>1</mn><mo>≡</mo><mi>I</mi><mi>n</mi><mn>1</mn><mi>m</mi><mi>o</mi><mi>d</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">D1 \equiv  In1 mod P 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord">1</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mn>2</mn><mo>≡</mo><mi>I</mi><mi>n</mi><mn>2</mn><mi>m</mi><mi>o</mi><mi>d</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">D2 \equiv  In2 mod P 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord">2</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></p>
-<p>当输入一个大于256位的值时，可以得到如下两个等式：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mn>1</mn><mo>=</mo><mi>I</mi><mi>n</mi><mn>1</mn><mo>+</mo><mi>k</mi><mo>∗</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">D1 =  In1 + k*P 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mn>2</mn><mo>=</mo><mi>I</mi><mi>n</mi><mn>2</mn><mo>+</mo><mi>q</mi><mo>∗</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">D2 = In2 + q*P 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.6597200000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></p>
-<p>两式做差即可以使用最大公约数求出素数P：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>≡</mo><mi>g</mi><mi>c</mi><mi>d</mi><mo>(</mo><mi>D</mi><mn>1</mn><mo>−</mo><mi>I</mi><mi>n</mi><mn>1</mn><mo separator="true">,</mo><mi>D</mi><mn>2</mn><mo>−</mo><mi>I</mi><mi>n</mi><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">P \equiv gcd(D1 - In1, D2 - In2) 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">c</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord">2</span><span class="mclose">)</span></span></span></span></span></p>
-<h1 id="vitor">vitor</h1>
-<!-- 
-https://reyammer.io/blog/2019/05/23/vitor-tania-my-challenges-for-defcon-ctf-quals-2019/ 
+        
 
-https://archive.ooo/c/vitor/300/
--->
-<p>安卓逆向题，作者是一个从事安卓逆向相关的人：<br>
-https://reyammer.io/<br>
-找到了wp：https://eybisi.run/DEF-CON-Quals-2019-Vitor/</p>
-<p>首先映入眼帘的是cf函数 它获取输入并进行了第一步的处理：</p>
-<pre><code class="language-java">public static boolean cf(MainActivity paramMainActivity, String paramString) {
-    try {
-      cfa((Context)paramMainActivity, p1EncFn);
-      cfa((Context)paramMainActivity, p5EncFn);
-      cfa((Context)paramMainActivity, randEncFn);
-      cfa((Context)paramMainActivity, rand2EncFn);
-      if (paramString.startsWith(&quot;OOO{&quot;) &amp;&amp; paramString.endsWith(&quot;}&quot;) &amp;&amp; paramString.length() == 45) {
-        byte[] arrayOfByte = g0(paramString.substring(4, 44));
-        File file = new File();
-        this(paramMainActivity.getFilesDir(), p1EncFn);
-        if (!cf((Context)paramMainActivity, dp1((Context)paramMainActivity, file, arrayOfByte), paramString))
-          return false; 
-        file = new File();
-        this(paramMainActivity.getFilesDir(), &quot;bam.html&quot;);
-        WebView webView = paramMainActivity.mWebView;
-        StringBuilder stringBuilder = new StringBuilder();
-        this();
-        stringBuilder.append(&quot;file:///&quot;);
-        stringBuilder.append(file.getAbsolutePath());
-        stringBuilder.append(&quot;?flag=&quot;);
-        stringBuilder.append(Uri.encode(paramString));
-        webView.loadUrl(stringBuilder.toString());
-        return mValid;
-      } 
-    } catch (Exception exception) {}
-    return false;
-  }
-</code></pre>
-<p>那我们现在看看g0做了什么：<br>
-g0的工作：</p>
-<pre><code>byte[0] = flag[0]^flag[8]^flag[16]^flag[24]^flag[32]
-byte[1] = flag[1]^flag[9]^flag[17]^flag[25]^flag[33]
-byte[2] = flag[2]^flag[10]^flag[18]^flag[26]^flag[34]
-byte[3] = flag[3]^flag[11]^flag[19]^flag[27]^flag[35]
-</code></pre>
-<p>下面看看df1做了什么：</p>
-<p>首先对flag中间部分进行MD5</p>
-<pre><code class="language-java">// 这里的
-private static File dp1(Context paramContext, File paramFile, byte[] paramArrayOfbyte) throws Exception {
-    byte[] arrayOfByte = hash(paramArrayOfbyte);
-    paramArrayOfbyte = Files.readAllBytes(paramFile.toPath());
-    try {
-      IvParameterSpec ivParameterSpec = new IvParameterSpec();
-      this(initVector);
-      //生成KEY 使用上一步四个字节
-      SecretKeySpec secretKeySpec = new SecretKeySpec();
-      this(arrayOfByte, &quot;AES&quot;);
-      Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5PADDING&quot;);
-      cipher.init(2, secretKeySpec, ivParameterSpec);
-      paramArrayOfbyte = cipher.doFinal(paramArrayOfbyte);
-      File file = new File();
-      // 加密第二个常量字符串
-      this(paramContext.getFilesDir(), p1Fn);
-      FileOutputStream fileOutputStream = new FileOutputStream();
-      this(file);
-      fileOutputStream.write(paramArrayOfbyte, 0, paramArrayOfbyte.length);
-      fileOutputStream.flush();
-      fileOutputStream.close();
-      return file;
-    } catch (Exception exception) {
-      return null;
-    } 
-  }
-</code></pre>
-<p>表意不明的API可以在这里查询</p>
-<p>https://docs.oracle.com/javase/8/docs/api/</p>
-<figure data-type="image" tabindex="1"><img src="https://blog.cyan.fit/post-images/1618362253127.png" alt="" loading="lazy"></figure>
-<p>根据opmode 这里实际上执行的是一个解密过程，4byte的hash感觉应该可以爆破</p>
-<p>安卓AES加密，我觉得在编译器里她之所以这样写是在表示下面的语句是上面语句的参数</p>
-<pre><code class="language-java">SecretKeySpec secretKeySpec = new SecretKeySpec();
-this(arrayOfByte, &quot;AES&quot;);
-</code></pre>
-<p>接下来是cf函数，这里面的DexClassLoader是恶意安卓程序常见的调用函数</p>
-<pre><code class="language-java">  private static boolean cf(Context paramContext, File paramFile, String paramString) {
-    File file = new File(paramContext.getFilesDir().getAbsolutePath());
-    DexClassLoader dexClassLoader = new DexClassLoader(paramFile.getAbsolutePath(), file.getAbsolutePath(), file.getAbsolutePath(), ClassLoader.getSystemClassLoader());
-    boolean bool = false;
-    try {
-      // 加载ooo.p1.P1类并从该类中获取cf function的执行方法
-      Class clazz = dexClassLoader.loadClass(&quot;ooo.p1.P1&quot;);
-      boolean bool1 = ((Boolean)clazz.getDeclaredMethod(&quot;cf&quot;, new Class[] { Context.class, String.class }).invoke(clazz, new Object[] { paramContext, paramString })).booleanValue();
-      bool = bool1;
-    } catch (Exception exception) {}
-    return bool;
-  }
-</code></pre>
-<p>调用ooo.p1.P1类，并从该类中调用一个函数。ooo.p1.P1类调用和一个函数是从类中调用。</p>
-<p>没有办法找到ooo.p1.P1的实现...<br>
-从代码里查看DEX动态加载的位置需要进行一些操作：</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[关于]]></title>
-        <id>https://blog.cyan.fit/post/about/</id>
-        <link href="https://blog.cyan.fit/post/about/">
-        </link>
-        <updated>2019-01-25T11:09:48.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>cyan小朋友的技术站</p>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<ul>
-<li>cyan</li>
-<li>BUPT</li>
-<li>Dubhe</li>
-<li>BlockChain &amp; Crypto</li>
-</ul>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<p>BlockChain&amp;Crypto&amp;Pwn</p>
-<h2 id="联系我呀">📬 联系我呀</h2>
-]]></content>
-    </entry>
-</feed>
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">cyan的学习笔记</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://blog.cyan.fit/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
