@@ -6,7 +6,7 @@
 
 <title>training | cyan_blog</title>
 
-<link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1618568006644">
+<link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1618800868365">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://blog.cyan.fit/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618568006644"
+            <form id="gridea-search-form" style="position: relative" data-update="1618800868365"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -388,7 +388,67 @@ this(arrayOfByte, &quot;AES&quot;);
 </code></pre>
 <p>调用ooo.p1.P1类，并从该类中调用一个函数。ooo.p1.P1类调用和一个函数是从类中调用。</p>
 <p>没有办法找到ooo.p1.P1的实现...<br>
-从代码里查看DEX动态加载的位置需要进行一些操作：</p>
+DexClassLoader 的解析方式<br>
+DexClassLoader 所加载的资源可以在assets里面找到。<br>
+把.dex文件转换为.jar文件，在使用的过程中需要使用2.1版本的dex2jar才不会报错</p>
+<p>打开ooo.p1.P1之后，发现是取出flag的几位进行异或然后取hash，随后对文件进行加密，文件格式标明为.so文件。</p>
+<p>使用相同的方式爆破四个字节的密钥，恢复出.so文件，是一个32bit的ELF文件，可以从程序上看到调用了xxx函数：</p>
+<pre><code class="language-java">  private native String xxx(String paramString1, String paramString2);
+</code></pre>
+<p>使用IDA进行逆向，找到Java_ooo_p1_P1_xxx函数，对应输入的值，在这里对应汇编代码的<code>jstring __cdecl Java_ooo_p1_P1_xxx(JNIEnv *env, jobject a2, jstring fs_0, jstring fds)</code> 其中参数fs_0对应的是输入的flag值</p>
+<p>首先对flag进行的操作是：<br>
+<img src="https://blog.cyan.fit/post-images/1618727044116.png" alt="" loading="lazy"></p>
+<p>随后依然生成四个字节的key，生成过key对文件进行加密，读取的文件是：<br>
+<img src="https://blog.cyan.fit/post-images/1618727284492.png" alt="" loading="lazy"></p>
+<p>这次加密的密钥生成有一些不同，密钥生成的方式如下：</p>
+<pre><code class="language-python">K2_0 = 0;
+flaga = flag + 4;
+for ( i = 3; i &lt; 10; i += 3 )
+  K2_0 ^= *&amp;flaga[4 * (i - 1)];
+return K2_0;
+</code></pre>
+<p>翻译成人话，上面生成的密钥组成形式为：</p>
+<pre><code>byte[0] = flag[8]^flag[20]^flag[32]
+byte[1] = flag[9]^flag[21]^flag[33]
+byte[2] = flag[10]^flag[22]^flag[34]
+byte[3] = flag[11]^flag[23]^flag[35]
+</code></pre>
+<p>在获得了四个字节的密钥后，我们又来到了文件加密环节，这次加密的内容是</p>
+<pre><code class="language-c">void __cdecl dp3(unsigned __int8 *p3enc, unsigned int K2_0)
+{
+  int i; // [esp+8h] [ebp-4h]
+
+  for ( i = 0; i &lt; 100; ++i )
+  {
+    *(_DWORD *)&amp;p3enc[4 * i] ^= K2_0;
+    K2_0 += 0x31333337;
+  }
+}
+</code></pre>
+<p>解密后的文件被当作函数进行执行，好的那么下面我们需要对文件进行解密了<br>
+参数调用的顺序：<br>
+%rdi, %rsi, %rdx, %rcx,%r8, %r9 六个寄存器用于存储函数调用时的6个参数（如果有6个或6个以上参数的话）。</p>
+<p>使用<code>ndisasm -b 32 shell_out.dat</code> 来获取.dat 文件的机器码，</p>
+<h1 id="逆向中会遇到的数据类型积累">逆向中会遇到的数据类型积累</h1>
+<p>各种数据类型都有多少个字节：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unsigned int</td>
+<td>4 bytes</td>
+</tr>
+<tr>
+<td>unsigned __int8</td>
+<td>1 bytes</td>
+</tr>
+</tbody>
+</table>
 
                 </div>
             </article>
