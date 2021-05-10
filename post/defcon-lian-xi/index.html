@@ -6,10 +6,10 @@
 
 <title>Vitor -- writeup | cyan_blog</title>
 
-<link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1620629639387">
+<link rel="shortcut icon" href="https://yuki1109.github.io/favicon.ico?v=1620658403560">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://blog.cyan.fit/styles/main.css">
+<link rel="stylesheet" href="https://yuki1109.github.io/styles/main.css">
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
 
 <style>
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1620629639387"
+            <form id="gridea-search-form" style="position: relative" data-update="1620658403560"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="post-content">
                     <p>得到jar包：<br>
-<img src="https://blog.cyan.fit/post-images/1619753586910.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619753586910.png" alt="" loading="lazy"><br>
 g0的部分取flag的4，44之间的位进行异或得出4bytes的密钥key：</p>
 <pre><code class="language-python">for i in range(0,10,1):
    for j in range(4):
@@ -242,15 +242,15 @@ for key_1 in range(S_BIT):
   }
 </code></pre>
 <p>找到ooo.p1.P1：<br>
-<img src="https://blog.cyan.fit/post-images/1619761883925.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619761883925.png" alt="" loading="lazy"><br>
 解密方式和上一个步骤相同：<br>
-<img src="https://blog.cyan.fit/post-images/1619761952131.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619761952131.png" alt="" loading="lazy"><br>
 同样爆破四个字节的密钥，密钥key2为<code>\x3c\x27\x43\x60</code>，恢复出一个32bit的ELF文件，可以从程序上看到调用了xxx函数，IDA打开，找到Java_ooo_p1_P1_xxx函数：<br>
-<img src="https://blog.cyan.fit/post-images/1619762691385.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619762691385.png" alt="" loading="lazy"><br>
 首先对flag进行的操作是：<br>
-<img src="https://blog.cyan.fit/post-images/1618727044116.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1618727044116.png" alt="" loading="lazy"><br>
 随后依然生成四个字节的key，生成过key对文件进行加密，读取的文件是：<br>
-<img src="https://blog.cyan.fit/post-images/1618727284492.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1618727284492.png" alt="" loading="lazy"><br>
 密钥生成的方式如下：</p>
 <pre><code class="language-python">K2_0 = 0;
 flaga = flag + 4;
@@ -273,11 +273,11 @@ return K2_0;
 <p>但是汇编不知道是什么格式，在IDA字符串里发现了提示<code>Jumping to nopsled in 3, 2, 1, ...</code> ，所以汇编以<code>\x90\x90\x90\x90</code> 开始。<br>
 key3为<code>\x6e\x63\x27\x4e</code> ，解密xtszswemcwohpluqmi文件获得汇编。<br>
 在call shellcode之前：<br>
-<img src="https://blog.cyan.fit/post-images/1619764950819.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619764950819.png" alt="" loading="lazy"><br>
 shellcode又进行了一些异或：<br>
-<img src="https://blog.cyan.fit/post-images/1619769290080.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619769290080.png" alt="" loading="lazy"><br>
 最后一部分是html，中的一段js：<br>
-<img src="https://blog.cyan.fit/post-images/1619770625701.png" alt="" loading="lazy"><br>
+<img src="https://yuki1109.github.io/post-images/1619770625701.png" alt="" loading="lazy"><br>
 依照每一步求解的key异或获得flag：</p>
 <pre><code class="language-python">from z3 import *
 
@@ -397,7 +397,7 @@ print result.encode('hex')
     </div>
     <div>
         Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://blog.cyan.fit/atom.xml" target="_blank">RSS</a></a>
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuki1109.github.io/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 
