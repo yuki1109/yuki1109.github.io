@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.cyan.fit</id>
     <title>cyan_blog</title>
-    <updated>2021-05-10T06:53:41.661Z</updated>
+    <updated>2021-05-10T06:54:02.543Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.cyan.fit"/>
     <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
@@ -10,4 +10,24 @@
     <logo>https://blog.cyan.fit/images/avatar.png</logo>
     <icon>https://blog.cyan.fit/favicon.ico</icon>
     <rights>All rights reserved 2021, cyan_blog</rights>
+    <entry>
+        <title type="html"><![CDATA[两个最近的Incident]]></title>
+        <id>https://blog.cyan.fit/post/spartan-incident/</id>
+        <link href="https://blog.cyan.fit/post/spartan-incident/">
+        </link>
+        <updated>2021-05-09T14:43:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近有两起发生在BSC上的攻击事件，做一下分析。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近有两起发生在BSC上的攻击事件，做一下分析。</p>
+<!-- more -->
+<h1 id="valuedefi-incident">ValueDeFi Incident</h1>
+<p>参考文献：<br>
+https://peckshield.medium.com/valuedefi-incident-incorrect-weighted-constant-product-invariant-calculation-1bbaa220a02b</p>
+<h1 id="spartan-incident">Spartan Incident</h1>
+<p>攻击transaction：<br>
+https://bscscan.com/tx/0xb64ae25b0d836c25d115a9368319902c972a0215bd108ae17b1b9617dfb93af8</p>
+<p>参考文献：<br>
+https://peckshield.medium.com/the-spartan-incident-root-cause-analysis-a0324cb4b42a</p>
+]]></content>
+    </entry>
 </feed>
