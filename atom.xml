@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://yuki1109.github.io</id>
+    <id>https://blog.cyan.fit</id>
     <title>cyan_blog</title>
-    <updated>2021-05-12T05:56:47.002Z</updated>
+    <updated>2021-05-12T06:01:29.656Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://yuki1109.github.io"/>
-    <link rel="self" href="https://yuki1109.github.io/atom.xml"/>
+    <link rel="alternate" href="https://blog.cyan.fit"/>
+    <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
     <subtitle>cyan的学习笔记</subtitle>
-    <logo>https://yuki1109.github.io/images/avatar.png</logo>
-    <icon>https://yuki1109.github.io/favicon.ico</icon>
+    <logo>https://blog.cyan.fit/images/avatar.png</logo>
+    <icon>https://blog.cyan.fit/favicon.ico</icon>
     <rights>All rights reserved 2021, cyan_blog</rights>
     <entry>
         <title type="html"><![CDATA[两个最近的Incident]]></title>
-        <id>https://yuki1109.github.io/post/spartan-incident/</id>
-        <link href="https://yuki1109.github.io/post/spartan-incident/">
+        <id>https://blog.cyan.fit/post/spartan-incident/</id>
+        <link href="https://blog.cyan.fit/post/spartan-incident/">
         </link>
         <updated>2021-05-09T14:43:07.000Z</updated>
         <summary type="html"><![CDATA[<p>最近有两起发生在BSC上的攻击事件，做一下分析。</p>
@@ -119,7 +119,7 @@ function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data)
 <p>因此攻击者构造一个<code>balance0Adjusted &lt; reserve0 &amp;&amp; balance1Adjusted &lt; reserve1</code>是可能的，于是才会在else分支里，构造能够触发错误的power运算的值。引文[2]是Bancor上的issue，对于power的函数使用需要注意N/D &lt; 1的情况，是无法正常工作的。</p>
 <p>最后，如何能使两边的balance都小于reserve。ValueDefi的swap主体还是Uniswap v2的代码，由于FlashLoan的存在，Uniswap可以允许输入两个amountOut作为参数，并且先于转账后校验守恒，这就是使得后续的资金校验显得格外重要，也是的攻击者可以同时从两个方向提币导致balance的减少。</p>
 <p>最后攻击者拿到了好多钱：<br>
-<img src="https://yuki1109.github.io/post-images/1620640619846.jpg" alt="" loading="lazy"></p>
+<img src="https://blog.cyan.fit/post-images/1620640619846.jpg" alt="" loading="lazy"></p>
 <p>看过一些swap的模型后就一直在思考这个模型的合理性，对比Balancer和Uniswap，这个模型把weight加入乘积守恒的合理性到底在哪里…明明增加了滑点和不稳定性啊，为什么还有那么多钱在里面…</p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1]https://peckshield.medium.com/valuedefi-incident-incorrect-weighted-constant-product-invariant-calculation-1bbaa220a02b<br>

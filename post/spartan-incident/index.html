@@ -6,10 +6,10 @@
 
 <title>两个最近的Incident | cyan_blog</title>
 
-<link rel="shortcut icon" href="https://yuki1109.github.io/favicon.ico?v=1620798971433">
+<link rel="shortcut icon" href="https://blog.cyan.fit/favicon.ico?v=1620799286424">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://yuki1109.github.io/styles/main.css">
+<link rel="stylesheet" href="https://blog.cyan.fit/styles/main.css">
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
 
 <style>
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1620798971433"
+            <form id="gridea-search-form" style="position: relative" data-update="1620799286424"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -296,7 +296,7 @@ function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data)
 <p>因此攻击者构造一个<code>balance0Adjusted &lt; reserve0 &amp;&amp; balance1Adjusted &lt; reserve1</code>是可能的，于是才会在else分支里，构造能够触发错误的power运算的值。引文[2]是Bancor上的issue，对于power的函数使用需要注意N/D &lt; 1的情况，是无法正常工作的。</p>
 <p>最后，如何能使两边的balance都小于reserve。ValueDefi的swap主体还是Uniswap v2的代码，由于FlashLoan的存在，Uniswap可以允许输入两个amountOut作为参数，并且先于转账后校验守恒，这就是使得后续的资金校验显得格外重要，也是的攻击者可以同时从两个方向提币导致balance的减少。</p>
 <p>最后攻击者拿到了好多钱：<br>
-<img src="https://yuki1109.github.io/post-images/1620640619846.jpg" alt="" loading="lazy"></p>
+<img src="https://blog.cyan.fit/post-images/1620640619846.jpg" alt="" loading="lazy"></p>
 <p>看过一些swap的模型后就一直在思考这个模型的合理性，对比Balancer和Uniswap，这个模型把weight加入乘积守恒的合理性到底在哪里…明明增加了滑点和不稳定性啊，为什么还有那么多钱在里面…</p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1]https://peckshield.medium.com/valuedefi-incident-incorrect-weighted-constant-product-invariant-calculation-1bbaa220a02b<br>
@@ -346,7 +346,7 @@ https://peckshield.medium.com/the-spartan-incident-root-cause-analysis-a0324cb4b
     </div>
     <div>
         Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuki1109.github.io/atom.xml" target="_blank">RSS</a></a>
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://blog.cyan.fit/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 
