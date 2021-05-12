@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuki1109.github.io</id>
     <title>cyan_blog</title>
-    <updated>2021-05-11T02:33:43.339Z</updated>
+    <updated>2021-05-12T05:07:50.798Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuki1109.github.io"/>
     <link rel="self" href="https://yuki1109.github.io/atom.xml"/>
@@ -129,6 +129,7 @@ function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data)
 <p>漏洞版本代码：</p>
 <p>攻击transaction：<br>
 https://bscscan.com/tx/0xb64ae25b0d836c25d115a9368319902c972a0215bd108ae17b1b9617dfb93af8</p>
+<p>说是bug fix的版本：https://github.com/spartan-protocol/spartanswap-contracts/commit/b836a7ad7c059ba749fd1fda9ad0bd177b1c9afb</p>
 <p>参考资料：<br>
 https://peckshield.medium.com/the-spartan-incident-root-cause-analysis-a0324cb4b42a</p>
 <h1 id="后续留坑">后续留坑</h1>
