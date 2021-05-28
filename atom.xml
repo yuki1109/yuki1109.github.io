@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.cyan.fit</id>
     <title>ALLEicf&apos;s blog</title>
-    <updated>2021-05-28T07:17:03.546Z</updated>
+    <updated>2021-05-28T08:08:50.483Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.cyan.fit"/>
     <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://blog.cyan.fit/images/avatar.png</logo>
     <icon>https://blog.cyan.fit/favicon.ico</icon>
     <rights>All rights reserved 2021, ALLEicf&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[BSC链上的交易信息]]></title>
+        <id>https://blog.cyan.fit/post/bsc-lian-shang-de-jiao-yi-xin-xi/</id>
+        <link href="https://blog.cyan.fit/post/bsc-lian-shang-de-jiao-yi-xin-xi/">
+        </link>
+        <updated>2021-05-17T08:03:23.000Z</updated>
+        <summary type="html"><![CDATA[<p>由于Ethereum的交易回放产品做的太好了，导致没有工具的我不会分析BSC链上的交易了…<br>
+于是就有了以下工作…</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>由于Ethereum的交易回放产品做的太好了，导致没有工具的我不会分析BSC链上的交易了…<br>
+于是就有了以下工作…</p>
+<!-- more -->
+<p>对于Ethereum上的交易分析一直都仰仗于这两个网站：</p>
+<ul>
+<li>https://bloxy.info/</li>
+<li>https://ethtx.info/<br>
+这两个网站会详细的列出一个transaction中间的函数调用情况，但是币安智能链找了半天没找到对应的工具，写不出这么好看的前端但是至少想提取一下一个transaction带着哪些参数调用了哪些内部函数…</li>
+</ul>
+<h2 id="脑中版本10">脑中版本1.0</h2>
+<p>这件事的目的是找到所有的transaction的。<br>
+初始想法，看起来只需要replay一下然后记录所有的Call/DelegateCall/StaticCall/CallCode这四个opcode执行时的栈信息就可以了。</p>
+<p>于是找到了：https://github.com/binance-chain/bsc</p>
+<p>在注册币安钱包的时候，一个新的问题困扰了我，为啥这个钱包验证助记次只需要三个？一般的MetaMask都是需要验证全部助记词的。好奇心趋势我去看看账户注册的时候，助记词和账户是如何对应验证的，以及为什么这里只取三个进行了验证？</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[两个最近的Incident]]></title>
         <id>https://blog.cyan.fit/post/spartan-incident/</id>
@@ -134,6 +159,39 @@ https://bscscan.com/tx/0xb64ae25b0d836c25d115a9368319902c972a0215bd108ae17b1b961
 https://peckshield.medium.com/the-spartan-incident-root-cause-analysis-a0324cb4b42a</p>
 <h1 id="后续留坑">后续留坑</h1>
 <p>始终没有找到</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CKB]]></title>
+        <id>https://blog.cyan.fit/post/gei-npy-jiang-ckb/</id>
+        <link href="https://blog.cyan.fit/post/gei-npy-jiang-ckb/">
+        </link>
+        <updated>2021-04-14T10:22:45.000Z</updated>
+        <summary type="html"><![CDATA[<p>之前策划了一篇“给npy讲CKB”，硬生生被我拖延成了npy（男朋友）给npy（女朋友）讲CKB，他会的已经比我还多了哈哈哈哈哈～</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>之前策划了一篇“给npy讲CKB”，硬生生被我拖延成了npy（男朋友）给npy（女朋友）讲CKB，他会的已经比我还多了哈哈哈哈哈～</p>
+<!-- more -->
+<p>预习材料：https://zero2ckb.ckbapp.dev/learn</p>
+<h1 id="ckb是什么nervos又是什么">CKB是什么，Nervos又是什么</h1>
+<p>CKB是Nervos Network的第一层，采用的共识机制是Proof of Work和改进的Nakamoto共识，CKB继承了比特币的架构思想，从泛化UTXO模型中创建了Cell模型，保留了比特币的一致性和简洁性。在Nervos CKB中，所有的状态都存储在Cells中，所有的计算都在链外完成，所有的验证工作都由节点处理。</p>
+<p>https://github.com/nervosnetwork/ckb</p>
+<h1 id="utxo">UTXO</h1>
+<p>在讲CKB之前先要介绍一下BlockChain的UTXO模型，是BlockChain存储用户金额的模型。</p>
+<p>在当前区块链世界中，主要有两种记录保存方式：<br>
+UTXO 模式：全称Unspent Transaction Outputs ，表明未花费的交易的输出，也就是说一个用户构建的每一笔Input（花费）都来自于用户已有的Outputs，一个Outputs在使用后不会再被使用，若有剩余以“找零”（新生成一个Output给User）的模式产生给用户。用户的Input会成为目标地址的Output。<br>
+和Account 模式。</p>
+<p>两个典型是Bitcoin 采用的是 UTXO 模型，Ethereum 采用的 Account 模型。</p>
+<p>在UTXO模型中每个用户有Input和Output</p>
+<p>Nervos 网络对应的代币为<br>
+Nervos blockchain, also known as the Common Knowledge Base</p>
+<h2 id="ckb-cell-model">CKB Cell Model</h2>
+<p>https://docs.nervos.org/docs/basics/concepts/cell-model<br>
+这里面以force-bridge的部分代码为例：</p>
+<p>force-bridge是一个跨链项目，</p>
+<p>https://xuejie.space/</p>
+<p>CKB的数据类型包含type和lock，</p>
+<p>lock使用签名来检查一个人是否有权执行当前的block</p>
+<p>本质上一个transaction是由input产生output的工程</p>
 ]]></content>
     </entry>
 </feed>
