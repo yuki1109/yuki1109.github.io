@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.cyan.fit</id>
     <title>ALLEicf&apos;s blog</title>
-    <updated>2021-06-02T08:05:08.135Z</updated>
+    <updated>2021-06-02T08:07:40.516Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.cyan.fit"/>
     <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
@@ -134,39 +134,6 @@ https://bscscan.com/tx/0xb64ae25b0d836c25d115a9368319902c972a0215bd108ae17b1b961
 https://peckshield.medium.com/the-spartan-incident-root-cause-analysis-a0324cb4b42a</p>
 <h1 id="后续留坑">后续留坑</h1>
 <p>始终没有找到</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CKB]]></title>
-        <id>https://blog.cyan.fit/post/gei-npy-jiang-ckb/</id>
-        <link href="https://blog.cyan.fit/post/gei-npy-jiang-ckb/">
-        </link>
-        <updated>2021-04-14T10:22:45.000Z</updated>
-        <summary type="html"><![CDATA[<p>之前策划了一篇“给npy讲CKB”，硬生生被我拖延成了npy（男朋友）给npy（女朋友）讲CKB，他会的已经比我还多了哈哈哈哈哈～</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>之前策划了一篇“给npy讲CKB”，硬生生被我拖延成了npy（男朋友）给npy（女朋友）讲CKB，他会的已经比我还多了哈哈哈哈哈～</p>
-<!-- more -->
-<p>预习材料：https://zero2ckb.ckbapp.dev/learn</p>
-<h1 id="ckb是什么nervos又是什么">CKB是什么，Nervos又是什么</h1>
-<p>CKB是Nervos Network的第一层，采用的共识机制是Proof of Work和改进的Nakamoto共识，CKB继承了比特币的架构思想，从泛化UTXO模型中创建了Cell模型，保留了比特币的一致性和简洁性。在Nervos CKB中，所有的状态都存储在Cells中，所有的计算都在链外完成，所有的验证工作都由节点处理。</p>
-<p>https://github.com/nervosnetwork/ckb</p>
-<h1 id="utxo">UTXO</h1>
-<p>在讲CKB之前先要介绍一下BlockChain的UTXO模型，是BlockChain存储用户金额的模型。</p>
-<p>在当前区块链世界中，主要有两种记录保存方式：<br>
-UTXO 模式：全称Unspent Transaction Outputs ，表明未花费的交易的输出，也就是说一个用户构建的每一笔Input（花费）都来自于用户已有的Outputs，一个Outputs在使用后不会再被使用，若有剩余以“找零”（新生成一个Output给User）的模式产生给用户。用户的Input会成为目标地址的Output。<br>
-和Account 模式。</p>
-<p>两个典型是Bitcoin 采用的是 UTXO 模型，Ethereum 采用的 Account 模型。</p>
-<p>在UTXO模型中每个用户有Input和Output</p>
-<p>Nervos 网络对应的代币为<br>
-Nervos blockchain, also known as the Common Knowledge Base</p>
-<h2 id="ckb-cell-model">CKB Cell Model</h2>
-<p>https://docs.nervos.org/docs/basics/concepts/cell-model<br>
-这里面以force-bridge的部分代码为例：</p>
-<p>force-bridge是一个跨链项目，</p>
-<p>https://xuejie.space/</p>
-<p>CKB的数据类型包含type和lock，</p>
-<p>lock使用签名来检查一个人是否有权执行当前的block</p>
-<p>本质上一个transaction是由input产生output的工程</p>
 ]]></content>
     </entry>
 </feed>
