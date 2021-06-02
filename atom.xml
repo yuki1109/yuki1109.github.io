@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.cyan.fit</id>
     <title>ALLEicf&apos;s blog</title>
-    <updated>2021-05-28T08:08:50.483Z</updated>
+    <updated>2021-06-02T08:03:01.510Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.cyan.fit"/>
     <link rel="self" href="https://blog.cyan.fit/atom.xml"/>
@@ -10,31 +10,6 @@
     <logo>https://blog.cyan.fit/images/avatar.png</logo>
     <icon>https://blog.cyan.fit/favicon.ico</icon>
     <rights>All rights reserved 2021, ALLEicf&apos;s blog</rights>
-    <entry>
-        <title type="html"><![CDATA[BSC链上的交易信息]]></title>
-        <id>https://blog.cyan.fit/post/bsc-lian-shang-de-jiao-yi-xin-xi/</id>
-        <link href="https://blog.cyan.fit/post/bsc-lian-shang-de-jiao-yi-xin-xi/">
-        </link>
-        <updated>2021-05-17T08:03:23.000Z</updated>
-        <summary type="html"><![CDATA[<p>由于Ethereum的交易回放产品做的太好了，导致没有工具的我不会分析BSC链上的交易了…<br>
-于是就有了以下工作…</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>由于Ethereum的交易回放产品做的太好了，导致没有工具的我不会分析BSC链上的交易了…<br>
-于是就有了以下工作…</p>
-<!-- more -->
-<p>对于Ethereum上的交易分析一直都仰仗于这两个网站：</p>
-<ul>
-<li>https://bloxy.info/</li>
-<li>https://ethtx.info/<br>
-这两个网站会详细的列出一个transaction中间的函数调用情况，但是币安智能链找了半天没找到对应的工具，写不出这么好看的前端但是至少想提取一下一个transaction带着哪些参数调用了哪些内部函数…</li>
-</ul>
-<h2 id="脑中版本10">脑中版本1.0</h2>
-<p>这件事的目的是找到所有的transaction的。<br>
-初始想法，看起来只需要replay一下然后记录所有的Call/DelegateCall/StaticCall/CallCode这四个opcode执行时的栈信息就可以了。</p>
-<p>于是找到了：https://github.com/binance-chain/bsc</p>
-<p>在注册币安钱包的时候，一个新的问题困扰了我，为啥这个钱包验证助记次只需要三个？一般的MetaMask都是需要验证全部助记词的。好奇心趋势我去看看账户注册的时候，助记词和账户是如何对应验证的，以及为什么这里只取三个进行了验证？</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[两个最近的Incident]]></title>
         <id>https://blog.cyan.fit/post/spartan-incident/</id>
