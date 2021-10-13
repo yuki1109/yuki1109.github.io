@@ -6,18 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>ccyan</title>
+  <title>《Linux源码分析》读书笔记（一） | ccyan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ccyan">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ccyan">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="前言：连载的《Linux源码分析》读书笔记。立一个flag，预计11月底前完结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Linux源码分析》读书笔记（一）">
+<meta property="og:url" content="http://example.com/2021/10/13/source-code-analysis/index.html">
 <meta property="og:site_name" content="ccyan">
-<meta property="og:description" content="ccyan">
+<meta property="og:description" content="前言：连载的《Linux源码分析》读书笔记。立一个flag，预计11月底前完结。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/typekernel.jpg">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/catalogue.png">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/image-20211013174502614.png">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/image-20211013213121646.png">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/v2-579718b4f504316a56d3e8695f1a161d_r.png">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/cpu_32.jpg">
+<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/cpu_64.jpg">
+<meta property="article:published_time" content="2021-10-13T06:07:40.000Z">
+<meta property="article:modified_time" content="2021-10-13T13:39:23.874Z">
 <meta property="article:author" content="ccyan">
-<meta property="article:tag" content="blockchain &amp; OS security">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/10/13/source-code-analysis/typekernel.jpg">
   
     <link rel="alternative" href="/atom.xml" title="ccyan" type="application/atom+xml">
   
@@ -149,16 +159,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-source-code-analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-source-code-analysis" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/13/source-code-analysis/">《Linux源码分析》读书笔记（一）</a>
+    <h1 class="article-title" itemprop="name">
+      《Linux源码分析》读书笔记（一）
     </h1>
   
 
@@ -172,11 +180,102 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>前言：连载的《Linux源码分析》读书笔记。立一个flag，预计11月底前完结。</p>
-        
-          <a class="article-more-a" href="/2021/10/13/source-code-analysis/#more">more >></a>
-        
+<span id="more"></span>
+
+<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="Linux-内核简介"><a href="#Linux-内核简介" class="headerlink" title="Linux 内核简介"></a>Linux 内核简介</h2><p>微内核（Micro-Kernel）：对于微内核，用户服务和内核服务分别运行在不同的地址空间中，各个服务之间通过进程间通信（通常是报文传递）交互信息。</p>
+<p>宏内核（Macro-Kernel）：对于宏内核不管是用户服务还是内核服务事实上都是内核在统一管理，它们是运行在同一地址空间中的。</p>
+<p><img src="typekernel.jpg"></p>
+<p>Linux既允许把被驱动程序在编译时静态地链接在内核中，也允许动态的在运行时安装。（模块：Linux中动态安装的设备驱动程序的实现）</p>
+<p>Linux内核代码位于/usr/src/linux，Linux源码组成大体如下图所示：</p>
+<p><img src="catalogue.png"></p>
+<h2 id="Intel-X86-CPU系列寻址方式"><a href="#Intel-X86-CPU系列寻址方式" class="headerlink" title="Intel X86 CPU系列寻址方式"></a>Intel X86 CPU系列寻址方式</h2><h3 id="16位CPU（8086）"><a href="#16位CPU（8086）" class="headerlink" title="16位CPU（8086）"></a>16位CPU（8086）</h3><p>CPU中的位指的是处理器中”算术逻辑单元”（ALU）的宽度，即CPU运算器一次最多处理的长度。</p>
+<p>CPU在做什么：CPU从内存中一条一条地取出指令和相应的数据，按指令操作码的规定，对数据进行运算处理，直到程序执行完毕为止。</p>
+<p>在Intel 8086中，数据总线为16位，但是地址总线为20位，所以还需要想办法将16位的数据映射成20位的地址。于是就有了段寄存器（CS、DS、SS、ES，分别用于指令、数据、堆栈和其他）</p>
+<p>段寄存器寻址方式：线性地址 = （段寄存器 &lt;&lt; 4） + （ip寄存器(偏移量））</p>
+<p>于是对于每一个由段寄存器的内容确定的基地址而言，一个进程总是能够访问从此开始的64KB字节的连续地址空间。并且在8086的设计中，段寄存器指令并非特权指令，因此这种寻址方式缺乏对内存空间的保护，这种寻址方式也被称为是”实地址模式”。</p>
+<p>由此可见在实地址模式上，是没有办法构造出现代意义上的”操作系统”的。于是后来又出现了保护模式（从80286系列开始），现在大部分x86的操作系统都是在保护模式下运行的。</p>
+<h3 id="32位CPU（80386及以后）"><a href="#32位CPU（80386及以后）" class="headerlink" title="32位CPU（80386及以后）"></a>32位CPU（80386及以后）</h3><p>Intel选择了在段寄存器的基础上构建保护模式。保护模式主要是将段寄存器从一个单纯的基地址变成一个指向数据结构的指针，这个指向的数据结构可以包含地址段长度、访问控制权限等信息。</p>
+<p>到了80386时候cpu是32位，地址总线变成了32位。除了先前的4个段寄存器还引入了两个新的段寄存器FS、GS（附加数据段寄存器）。但是它的寄存器大小为了兼容之前体系下的版本，寄存器依旧是16比特位宽，这么说寻址能力又不能满足了。于是这个时候增加了两个寄存器，GDTR（全局的段的描述附表），LDTR（局部的描述附表），新增的寄存器可以不和上个版本兼容，所以不是16位而是32位，访问这两个寄存器的指令也被设置为特权指令。</p>
+<p>那么我们如何找到段描述表的位置：</p>
+<p>段描述表起始地址 = 段寄存器&gt;&gt;3 + GDTR/LDTR中的基地址  （由于特权指令的存在，这里是没有办法通过修改段寄存器来修改段表的位置的）</p>
+<p>段描述表一共64字节：</p>
+<p><img src="image-20211013174502614.png"></p>
+<p>线性地址 = [ 段描述符 ] + 段内偏移量</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BASE(32位)</td>
+<td>段首地址的线性地址</td>
+</tr>
+<tr>
+<td>G</td>
+<td>为0代表此段长度以字节为单位，为1代表此段长度以4K为单位</td>
+</tr>
+<tr>
+<td>LIMIT(20位)</td>
+<td>段限制长度 （4K）</td>
+</tr>
+<tr>
+<td>S</td>
+<td>为0表示是系统段，否则为代码段或数据段</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>描述段的类型和存取权限</td>
+</tr>
+<tr>
+<td>DPL</td>
+<td>描述符特权级，访问这个段CPU要求的最小优先级</td>
+</tr>
+<tr>
+<td>P</td>
+<td>表示此段是否被交换到磁盘，总是置为1</td>
+</tr>
+<tr>
+<td>D或B</td>
+<td>如果段的LIMIT是32位长，则置1，如果是16位长，置0</td>
+</tr>
+</tbody></table>
+<h2 id="i386的分页内存管理机制"><a href="#i386的分页内存管理机制" class="headerlink" title="i386的分页内存管理机制"></a>i386的分页内存管理机制</h2><p>对应上线性地址之后，80386把线性地址空间划分为4K的页面，线性地址在转换为物理地址的过程中被分为三个部分：</p>
+<p><img src="image-20211013213121646.png"></p>
+<p>进行一个小转化就能找到最终的物理地址啦。</p>
+<h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><p>16位CPU：</p>
+<p><img src="v2-579718b4f504316a56d3e8695f1a161d_r.png"></p>
+<p>32位CPU：</p>
+<p><img src="cpu_32.jpg"></p>
+<p>64位CPU：</p>
+<p><img src="cpu_64.jpg"></p>
+<h2 id="Linux中的C语言特性"><a href="#Linux中的C语言特性" class="headerlink" title="Linux中的C语言特性"></a>Linux中的C语言特性</h2><p>inline函数</p>
+<h2 id="参考🔗"><a href="#参考🔗" class="headerlink" title="参考🔗"></a>参考🔗</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/324210723">https://zhuanlan.zhihu.com/p/324210723</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -196,16 +295,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/13/source-code-analysis/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/13/source-code-analysis/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/10/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -225,73 +383,14 @@
 
 
 
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/12/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2021/10/12/hello-world/" class="archive-article-date">
-  	<time datetime="2021-10-12T12:32:38.901Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-          <a class="article-more-a" href="/2021/10/12/hello-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/12/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -314,8 +413,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
