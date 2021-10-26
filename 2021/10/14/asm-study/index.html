@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>ccyan</title>
+  <title>《Linux源码分析》读书笔记（二） | ccyan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: 《Linux源码分析》读书笔记（二）date: 2021-10-14 14:04:06tags: - Linux   toc: true Linux源代码中的汇编语言基础。">
+  <meta name="description" content="Linux源代码中的汇编语言基础。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ccyan">
+<meta property="og:title" content="《Linux源码分析》读书笔记（二）">
 <meta property="og:url" content="http://example.com/2021/10/14/asm-study/index.html">
 <meta property="og:site_name" content="ccyan">
-<meta property="og:description" content="title: 《Linux源码分析》读书笔记（二）date: 2021-10-14 14:04:06tags: - Linux   toc: true Linux源代码中的汇编语言基础。">
+<meta property="og:description" content="Linux源代码中的汇编语言基础。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-14T06:04:06.796Z">
-<meta property="article:modified_time" content="2021-10-26T14:30:43.122Z">
+<meta property="og:image" content="http://example.com/2021/10/14/asm-study/image-20211026204418354.png">
+<meta property="og:image" content="http://example.com/2021/10/14/asm-study/image-20211026223000921.png">
+<meta property="article:published_time" content="2021-10-14T06:04:06.000Z">
+<meta property="article:modified_time" content="2021-10-26T14:49:31.739Z">
 <meta property="article:author" content="ccyan">
-<meta property="article:tag" content="blockchain &amp; OS security">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/10/14/asm-study/image-20211026204418354.png">
   
     <link rel="alternative" href="/atom.xml" title="ccyan" type="application/atom+xml">
   
@@ -154,13 +157,24 @@
             <article id="post-asm-study" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《Linux源码分析》读书笔记（二）
+    </h1>
+  
+
+        
+        <a href="/2021/10/14/asm-study/" class="archive-article-date">
+  	<time datetime="2021-10-14T06:04:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-14</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: 《Linux源码分析》读书笔记（二）<br>date: 2021-10-14 14:04:06<br>tags:</p>
-<pre><code>- Linux 
-</code></pre>
-<p>toc: true</p>
-<p>Linux源代码中的汇编语言基础。</p>
+        <p>Linux源代码中的汇编语言基础。</p>
 <span id="more"></span>
 
 <h2 id="Linux中的汇编语言"><a href="#Linux中的汇编语言" class="headerlink" title="Linux中的汇编语言"></a>Linux中的汇编语言</h2><h2 id="AT-amp-T-特性"><a href="#AT-amp-T-特性" class="headerlink" title="AT&amp;T 特性"></a>AT&amp;T 特性</h2><p>在DOS/Windows 下的汇编语言代码都是 Intel 风格的，而 Linux 和 Unix 系统中更多采用的是 AT&amp;T 格式，下面记录一些两种语言的差异，以防遗忘。</p>
@@ -207,13 +221,20 @@
 <ul>
 <li>约束条件：所以结合上面的输入，<code>%1</code>寄存器里面的应该就是<code>ir(i)</code>，另外，%0、%1的排序是从输入部开始，往输出部顺延的</li>
 </ul>
-<p>![image-20211026204418354](../../../../Library/Application Support/typora-user-images/image-20211026204418354.png)</p>
+<p><img src="image-20211026204418354.png" alt="image-20211026204418354"></p>
 </li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">约束 Input/Output 意义 </span><br><span class="line">r I,O 表示使用一个通用寄存器，由GCC在%eax/%ax/%al, %ebx/%bx/%bl, %ecx/%cx/%cl, %edx/%dx/%dl中选取一个GCC认为合适的。 </span><br><span class="line">q I,O 表示使用一个通用寄存器，和r的意义相同。 </span><br><span class="line">a I,O 表示使用%eax / %ax / %al </span><br><span class="line">b I,O 表示使用%ebx / %bx / %bl </span><br><span class="line">c I,O 表示使用%ecx / %cx / %cl </span><br><span class="line">d I,O 表示使用%edx / %dx / %dl </span><br><span class="line">D I,O 表示使用%edi / %di </span><br><span class="line">S I,O 表示使用%esi / %si </span><br><span class="line">f I,O 表示使用浮点寄存器 </span><br><span class="line">t I,O 表示使用第一个浮点寄存器 </span><br><span class="line">u I,O 表示使用第二个浮点寄存器 </span><br></pre></td></tr></table></figure>
+
 <h2 id="例子：memcpy"><a href="#例子：memcpy" class="headerlink" title="例子：memcpy"></a>例子：memcpy</h2><p>书上的例子，在这里简化的分析一下：</p>
-<p>![image-20211026223000921](../../../../Library/Application Support/typora-user-images/image-20211026223000921.png)</p>
+<p><img src="image-20211026223000921.png" alt="image-20211026223000921"></p>
 <ul>
 <li>首先根据输入输出对样板操作进行排序解析，</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html">https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31816461">https://www.zhihu.com/question/31816461</a></li>
+<li></li>
 </ul>
 
       
@@ -244,6 +265,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -338,6 +370,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">Linux中的汇编语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AT-amp-T-%E7%89%B9%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">AT&amp;T 特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GCC%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96"><span class="toc-number">3.</span> <span class="toc-text">GCC内联汇编</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9Amemcpy"><span class="toc-number">4.</span> <span class="toc-text">例子：memcpy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
