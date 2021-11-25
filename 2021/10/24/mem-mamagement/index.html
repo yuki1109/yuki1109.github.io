@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/program_virtual_address_memory_space.png">
 <meta property="article:published_time" content="2021-10-24T06:03:08.000Z">
-<meta property="article:modified_time" content="2021-10-28T02:01:49.900Z">
+<meta property="article:modified_time" content="2021-11-02T05:26:44.386Z">
 <meta property="article:author" content="ccyan">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -178,7 +178,9 @@
 
 
 
-<h2 id="Linux内存管理的基本框架"><a href="#Linux内存管理的基本框架" class="headerlink" title="Linux内存管理的基本框架"></a>Linux内存管理的基本框架</h2><h3 id="地址映射概述"><a href="#地址映射概述" class="headerlink" title="地址映射概述"></a>地址映射概述</h3><ul>
+<h2 id="Linux内存管理的基本框架"><a href="#Linux内存管理的基本框架" class="headerlink" title="Linux内存管理的基本框架"></a>Linux内存管理的基本框架</h2><h3 id="地址映射概述"><a href="#地址映射概述" class="headerlink" title="地址映射概述"></a>地址映射概述</h3><p>在操作系统刚要启动的时候，他面对的是一些还没有被配置的大块内存和一个有自己想法的CPU。所以先回顾下第一章涉及的CPU的内存管理：CPU为了扩展地址总线的位数增加了段寄存器（分段），同时CPU通过页面目录和页表的二层映射，完成线性地址到最终物理地址的转换。</p>
+<p>虚拟内存为每个进程提供了一个一致的、私有的地址空间，它让每个进程产生了一种自己在独享主存的错觉（每个进程拥有一片连续完整的内存空间）。MMU：</p>
+<ul>
 <li><h2 id="为什么会有地址映射"><a href="#为什么会有地址映射" class="headerlink" title="为什么会有地址映射"></a>为什么会有地址映射</h2></li>
 </ul>
 <p>一些概念：</p>
@@ -294,6 +296,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/11/24/BabyDefi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          出题笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2021/10/14/asm-study/" id="article-nav-older" class="article-nav-link-wrap">
@@ -437,6 +448,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Blockchain</a>
               </li>
             
             <div class="clearfix"></div>

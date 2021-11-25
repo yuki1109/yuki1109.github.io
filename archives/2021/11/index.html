@@ -6,30 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>《Linux源码分析》读书笔记（一） | ccyan</title>
+  <title>Archives: 2021/11 | ccyan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言：连载的《Linux源码分析》读书笔记。立一个flag，预计11月底前完结。 原文出现的2.x的代码会尽力替换为4.19版本的代码并对新版本代码进行补充分析。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="《Linux源码分析》读书笔记（一）">
-<meta property="og:url" content="http://example.com/2021/10/13/source-code-analysis/index.html">
+  <meta name="description" content="走不出 看不破">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ccyan">
+<meta property="og:url" content="http://example.com/archives/2021/11/index.html">
 <meta property="og:site_name" content="ccyan">
-<meta property="og:description" content="前言：连载的《Linux源码分析》读书笔记。立一个flag，预计11月底前完结。 原文出现的2.x的代码会尽力替换为4.19版本的代码并对新版本代码进行补充分析。">
+<meta property="og:description" content="走不出 看不破">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/typekernel.jpg">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/catalogue.png">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/image-20211013174502614.png">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/image-20211013213121646.png">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/v2-579718b4f504316a56d3e8695f1a161d_r.png">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/cpu_32.jpg">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/cpu_64.jpg">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/list_head_struct.png">
-<meta property="og:image" content="http://example.com/2021/10/13/source-code-analysis/list_head_init.png">
-<meta property="article:published_time" content="2021-10-13T06:07:40.000Z">
-<meta property="article:modified_time" content="2021-10-15T08:08:47.563Z">
 <meta property="article:author" content="ccyan">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="blockchain &amp; OS security">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/10/13/source-code-analysis/typekernel.jpg">
   
     <link rel="alternative" href="/atom.xml" title="ccyan" type="application/atom+xml">
   
@@ -161,350 +149,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-source-code-analysis" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      《Linux源码分析》读书笔记（一）
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/11/24/BabyDefi/" class="archive-article-date">
+  	<time datetime="2021-11-24T11:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-24</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/11/24/BabyDefi/">出题笔记</a>
     </h1>
   
 
-        
-        <a href="/2021/10/13/source-code-analysis/" class="archive-article-date">
-  	<time datetime="2021-10-13T06:07:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前言：连载的《Linux源码分析》读书笔记。立一个flag，预计11月底前完结。</p>
-<p>原文出现的2.x的代码会尽力替换为4.19版本的代码并对新版本代码进行补充分析。</p>
-<span id="more"></span>
-
-<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="Linux-内核简介"><a href="#Linux-内核简介" class="headerlink" title="Linux 内核简介"></a>Linux 内核简介</h2><p>微内核（Micro-Kernel）：对于微内核，用户服务和内核服务分别运行在不同的地址空间中，各个服务之间通过进程间通信（通常是报文传递）交互信息。</p>
-<p>宏内核（Macro-Kernel）：对于宏内核不管是用户服务还是内核服务事实上都是内核在统一管理，它们是运行在同一地址空间中的。</p>
-<p><img src="typekernel.jpg"></p>
-<p>Linux既允许把被驱动程序在编译时静态地链接在内核中，也允许动态的在运行时安装。模块：Linux中动态安装的设备驱动程序的实现。Linux内核代码位于/usr/src/linux，Linux源码组成大体如下图所示：</p>
-<p><img src="catalogue.png"></p>
-<h2 id="Intel-X86-CPU系列寻址方式"><a href="#Intel-X86-CPU系列寻址方式" class="headerlink" title="Intel X86 CPU系列寻址方式"></a>Intel X86 CPU系列寻址方式</h2><h3 id="16位CPU（8086）"><a href="#16位CPU（8086）" class="headerlink" title="16位CPU（8086）"></a>16位CPU（8086）</h3><p>CPU中的位指的是处理器中”算术逻辑单元”（ALU）的宽度，即CPU运算器一次最多处理的长度。</p>
-<p>CPU在做什么：CPU从内存中一条一条地取出指令和相应的数据，按指令操作码的规定，对数据进行运算处理，直到程序执行完毕为止。</p>
-<p>在Intel 8086中，数据总线为16位，但是地址总线为20位，所以还需要想办法将16位的数据映射成20位的地址。于是就有了段寄存器（CS、DS、SS、ES，分别用于指令、数据、堆栈和其他）</p>
-<p>段寄存器寻址方式：线性地址 = （段寄存器 &lt;&lt; 4） + （ip寄存器(偏移量））</p>
-<p>于是对于每一个由段寄存器的内容确定的基地址而言，一个进程总是能够访问从此开始的64KB字节的连续地址空间。并且在8086的设计中，段寄存器指令并非特权指令，因此这种寻址方式缺乏对内存空间的保护，这种寻址方式也被称为是”实地址模式”。</p>
-<p>由此可见在实地址模式上，是没有办法构造出现代意义上的”操作系统”的。于是后来又出现了保护模式（从80286系列开始），现在大部分x86的操作系统都是在保护模式下运行的。</p>
-<h3 id="32位CPU（80386及以后）"><a href="#32位CPU（80386及以后）" class="headerlink" title="32位CPU（80386及以后）"></a>32位CPU（80386及以后）</h3><p>Intel选择了在段寄存器的基础上构建保护模式。保护模式主要是将段寄存器从一个单纯的基地址变成一个指向数据结构的指针，这个指向的数据结构可以包含地址段长度、访问控制权限等信息。</p>
-<p>到了80386时候cpu是32位，地址总线变成了32位。除了先前的4个段寄存器还引入了两个新的段寄存器FS、GS（附加数据段寄存器）。但是它的寄存器大小为了兼容之前体系下的版本，寄存器依旧是16比特位宽，这么说寻址能力又不能满足了。于是这个时候增加了两个寄存器，GDTR（全局的段的描述附表），LDTR（局部的描述附表），新增的寄存器可以不和上个版本兼容，所以不是16位而是32位，访问这两个寄存器的指令也被设置为特权指令。</p>
-<p>那么我们如何找到段描述表的位置：</p>
-<p>段描述表起始地址 = 段寄存器&gt;&gt;3 + GDTR/LDTR中的基地址  （由于特权指令的存在，这里是没有办法通过修改段寄存器来修改段表的位置的）</p>
-<p>段描述表一共64字节：</p>
-<p><img src="image-20211013174502614.png"></p>
-<p>线性地址 = [ 段描述符 ] + 段内偏移量</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BASE(32位)</td>
-<td>段首地址的线性地址</td>
-</tr>
-<tr>
-<td>G</td>
-<td>为0代表此段长度以字节为单位，为1代表此段长度以4K为单位</td>
-</tr>
-<tr>
-<td>LIMIT(20位)</td>
-<td>段限制长度 （4K）</td>
-</tr>
-<tr>
-<td>S</td>
-<td>为0表示是系统段，否则为代码段或数据段</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>描述段的类型和存取权限</td>
-</tr>
-<tr>
-<td>DPL</td>
-<td>描述符特权级，访问这个段CPU要求的最小优先级</td>
-</tr>
-<tr>
-<td>P</td>
-<td>表示此段是否被交换到磁盘，总是置为1</td>
-</tr>
-<tr>
-<td>D或B</td>
-<td>如果段的LIMIT是32位长，则置1，如果是16位长，置0</td>
-</tr>
-</tbody></table>
-<h2 id="i386的分页内存管理机制"><a href="#i386的分页内存管理机制" class="headerlink" title="i386的分页内存管理机制"></a>i386的分页内存管理机制</h2><p>对应上线性地址之后，80386把线性地址空间划分为4K的页面，线性地址在转换为物理地址的过程中被分为三个部分：</p>
-<p><img src="image-20211013213121646.png"></p>
-<p>进行一个小转化就能找到最终的物理地址啦。</p>
-<h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><p>16位CPU：</p>
-<p><img src="v2-579718b4f504316a56d3e8695f1a161d_r.png"></p>
-<p>32位CPU：</p>
-<p><img src="cpu_32.jpg"></p>
-<p>64位CPU：</p>
-<p><img src="cpu_64.jpg"></p>
-<h2 id="Linux中的C语言特性"><a href="#Linux中的C语言特性" class="headerlink" title="Linux中的C语言特性"></a>Linux中的C语言特性</h2><h3 id="gcc特性"><a href="#gcc特性" class="headerlink" title="gcc特性"></a>gcc特性</h3><h5 id="packed"><a href="#packed" class="headerlink" title="packed"></a>packed</h5><p>假设有如下代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">foo</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> a;</span><br><span class="line">	<span class="keyword">int</span> x[z];</span><br><span class="line">&#125; __attribute__((packed));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>__attribute__</code> 是 gcc 的一个保留字，用于作属性描述。如果不使用这个保留字，由于 gcc 优先尊重标准 C，则会创建一个名为 <code>packed</code> 的变量。</li>
-<li><code>packed</code> 属性表示关闭编译器的地址对齐功能。CPU 读取内存通常按块 (chuck) 进行，例如在 x86 架构的计算机上，一个 chuck 大小为 4 bytes（即 32 bits）。为了加速 CPU 对属性的访问，编译器会在属性间加入无意义的内容。具体来说，以 x86 为例：</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">foo</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> a;</span><br><span class="line">	<span class="keyword">char</span> b;</span><br><span class="line">	<span class="comment">/* 2-byte padding */</span></span><br><span class="line">	<span class="keyword">int</span> c;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>单个结构体占用的内存为 8 bytes，而不是 1 + 1 + 4 = 6 bytes（可以使用 gcc 编译，打印 <code>sizeof(foo)</code> 试一试）。如果没有 padding，则读取 <code>foo.c</code> 需要分两次（先读取第一个 chuck，取后两个字节，再读取第二个 chuck，取前两个字节，拼接在一起形成 <code>foo.c</code> ）；有了 padding 之后，读取 <code>foo.c</code> 可以一次性完成。</p>
-<p>在 Linux 内核中，内核空间非常宝贵，因此需要牺牲效率，使用 <code>__attribute__((packed))</code> 关闭这一特性。</p>
-<ul>
-<li>另一个相关的属性是 <code>__attribute__((aligned(n)))</code> ，其中 <code>n</code> 为整数，表示属性应该按照多少个字节对齐。不难看出 <code>aligned(1)</code> 等价于 <code>packed</code>。</li>
-<li>编译器还支持伪指令 <code>#pragma pack(n)</code> 来描述这一特性。可以使用 <code>#pragma ()</code> 来取消这一设置。例如：</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(1) <span class="comment">// 取消 padding</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">foo</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> a;</span><br><span class="line">	<span class="keyword">char</span> b;</span><br><span class="line">	<span class="comment">/* no padding */</span></span><br><span class="line">	<span class="keyword">int</span> c;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack() <span class="comment">// 恢复默认设置，即 4 字节对齐</span></span></span><br></pre></td></tr></table></figure>
-
-<p>// 十分感谢@唯 Vian大佬的讲解</p>
-<h5 id="aligned与结构体"><a href="#aligned与结构体" class="headerlink" title="aligned与结构体"></a>aligned与结构体</h5><p>aligned属性最常用在变量声明上。它的作用是告诉GCC，为变量分配内存时，要分配在对齐的内存地址上。</p>
-<p>什么是对齐的内存地址：一般计算机的内存是以字节（byte，等于8bit）为最小单元的。内存地址相当于从0开始的字节偏移数。如果一个内存地址是N的倍数，我们就说它是N字节对齐的（N-byte aligned）。</p>
-<p>对于C/C++中的基本数据类型，假设它的长度为n字节，那么该类型的变量会被编译器默认分配到n字节对齐的内存上。例如，char的长度是1字节，char类型变量的地址将是1字节对齐的（任意值均可）； int的长度是4字节，所以int类型变量将被分配到4字节对齐的地址上。这种默认情况下的变量对齐方式又称作自然对齐（naturally aligned）。</p>
-<p>当我们需要改变默认的情况时可以使用aligned属性：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x __attribute__ ((aligned (<span class="number">16</span>))) = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-
-<p>告诉编译器把变量x分配在16字节对齐的内存地址上，而非默认的4字节对齐。</p>
-<p>编译器之所以默认让变量自然对齐，是因为这种对齐情况下的内存访问是最高效的。受限于硬件实现，非对齐内存访问的性能会有所下降；甚至在有些处理器（如DSP、早期的ARM）上，非对齐的内存访问根本就不支持， 将直接引发错误。而我们之所以需要自己指定对齐方式，很多时候是程序优化的需求。例如，在x86平台上要使用<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">SSE</a>指令，所操作的数据在内存中就必须是16字节对齐的。</p>
-<p>aligned不仅可以用作变量属性，还能用作函数属性和数据类型属性。它作为函数属性时的作用等价于对函数使用<code>-falign-functions</code>这一<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html">优化选项</a>。 当它用作数据类型的属性时，相当于告诉编译器，这一类型的所有变量都要按指定字节数对齐。</p>
-<p>结构体是一种数据类型，它与aligned有一些特殊的关系。上面提到，aligned可以用于指定数据类型的属性，因此可以用于结构体，例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((<span class="title">aligned</span> (8))) <span class="title">my_struct1</span> &#123;</span></span><br><span class="line">	<span class="keyword">short</span> f[<span class="number">3</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>但这么用不仅会影响为该结构体变量分配内存的位置，还可能影响其内存占用。在上面的例子中，这个结构体内有3个两字节的short，本来只需要占用6字节的内存； 但由于指定了8字节对齐，编译器会在该结构体尾部填充额外的2个字节，使得这个结构体的大小为8字节。为什么要填充多余的字节呢？因为只有将该结构体补足8个字节，才能保证在这个结构体类型的数组中，数组中每个元素 都是8字节对齐的（考虑到数组元素在内存中的连续存放）。</p>
-<p>aligned也可以用在结构体的成员上，这时就成了对变量指定属性。<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Type-Attributes.html">GCC的相关文档</a>里提到，C语言规定结构体类型必须至少对齐到其所有成员变量对齐字节数的最小公倍数， 因此指定结构体的对齐完全可以通过指定其中成员变量的对齐来实现，不过前者明显可读性好些。</p>
-<p>当aligned属性用于数据类型（比如结构体）的时候，只能增加对齐字节数而不能减小。例如，下面的结构体本身大小有6字节，虽然指定了4字节对齐，但并不能达到目的，最终GCC还是会按8字节对齐处理。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((<span class="title">aligned</span> (4))) <span class="title">my_struct2</span> &#123;</span></span><br><span class="line">	<span class="keyword">short</span> f[<span class="number">3</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>如果要减小对齐字节数，需要用到下面介绍的packed属性。</p>
-<h3 id="通用数据结构"><a href="#通用数据结构" class="headerlink" title="通用数据结构"></a>通用数据结构</h3><p>在内核中有一些宏定义会写成下面这种格式：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DUMP_WRITE(addr,nr) do&#123; memcpy(bufp,addr,nr); bufp+=nr; &#125; while(0)</span></span><br></pre></td></tr></table></figure>
-
-<p>每当引用这个宏定义的时候，循环体会执行且仅执行一次。但是为什么要写成这样中do-while形式，通过几个反例进行分析：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DUMP_WRITE(addr,nr) memcpy(bufp,addr,nr); bufp+=nr;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果在代码里引用这段的时候，编译器会认为函数在第一个分号后就结束了，会造成一些非预期的编译错误/执行错误（具体情况需要看这个函数加在哪个位置了）。这个函数的第二个语句不会被当作函数整体的一部分而执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define DUMP_WRITE(addr,nr) &#123; memcpy(bufp,addr,nr); bufp+=nr; &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个比较难想象，需要结合一个例子来看为啥加了括号还是不对：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (addr) DUMP_WRITE(addr,nr);</span><br><span class="line"><span class="keyword">else</span> do_something_else();</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码会变成：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (addr) &#123; memcpy(bufp,addr,nr); bufp+=nr; &#125; ; // gcc 认为if在这里结束了，下面的else是不能和上面的if对应的</span><br><span class="line">else do_something_else();</span><br></pre></td></tr></table></figure>
-
-<p>因此，do-while结构在任何场合都不容易出错。</p>
-<h4 id="从一个简单双向链表到内核中的双向链表"><a href="#从一个简单双向链表到内核中的双向链表" class="headerlink" title="从一个简单双向链表到内核中的双向链表"></a>从一个简单双向链表到内核中的双向链表</h4><p>如果我们只是想对数据结构foo实现一个双向链表结构，我们可以在里面加上两个指针：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">foo</span>&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">foo</span> *<span class="title">prev</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">foo</span> *<span class="title">next</span>;</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种情况有一个问题，有多少子程序需要操作队列，就得构建多少个队列的数据结构。所以Linux采用了一套通用的、一般的、可以用到各种不同数据结构的队列操作。在4.19版本里list_head被定义为如下形式：</p>
-<p><img src="list_head_struct.png"></p>
-<p>在list的实际应用中，每一个使用list的数据结构都需要对list进行自己的初始化。</p>
-<p><img src="list_head_init.png"></p>
-<p>那么接下来就是一个数据结构的增删操作，list_add: （部分</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Insert a new entry between two known consecutive entries.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This is only for internal list manipulation where we know</span></span><br><span class="line"><span class="comment"> * the prev/next entries already!</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_add(struct list_head *<span class="keyword">new</span>,</span><br><span class="line">			      struct list_head *prev,</span><br><span class="line">			      struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (!__list_add_valid(<span class="keyword">new</span>, prev, next))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	next-&gt;prev = <span class="keyword">new</span>;</span><br><span class="line">	<span class="keyword">new</span>-&gt;next = next;</span><br><span class="line">	<span class="keyword">new</span>-&gt;prev = prev;</span><br><span class="line">	WRITE_ONCE(prev-&gt;next, <span class="keyword">new</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * list_add - add a new entry</span></span><br><span class="line"><span class="comment"> * @new: new entry to be added</span></span><br><span class="line"><span class="comment"> * @head: list head to add it after</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Insert a new entry after the specified head.</span></span><br><span class="line"><span class="comment"> * This is good for implementing stacks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_add</span><span class="params">(struct list_head *<span class="keyword">new</span>, struct list_head *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	__list_add(<span class="keyword">new</span>, head, head-&gt;next);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * list_add_tail - add a new entry</span></span><br><span class="line"><span class="comment"> * @new: new entry to be added</span></span><br><span class="line"><span class="comment"> * @head: list head to add it before</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Insert a new entry before the specified head.</span></span><br><span class="line"><span class="comment"> * This is useful for implementing queues.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_add_tail</span><span class="params">(struct list_head *<span class="keyword">new</span>, struct list_head *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	__list_add(<span class="keyword">new</span>, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>list_del：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Delete a list entry by making the prev/next entries</span></span><br><span class="line"><span class="comment"> * point to each other.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This is only for internal list manipulation where we know</span></span><br><span class="line"><span class="comment"> * the prev/next entries already!</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_del(struct list_head * prev, struct list_head * next)</span><br><span class="line">&#123;</span><br><span class="line">	next-&gt;prev = prev;</span><br><span class="line">	WRITE_ONCE(prev-&gt;next, next);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * list_del - deletes entry from list.</span></span><br><span class="line"><span class="comment"> * @entry: the element to delete from the list.</span></span><br><span class="line"><span class="comment"> * Note: list_empty() on entry does not return true after this, the entry is</span></span><br><span class="line"><span class="comment"> * in an undefined state.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_del_entry(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (!__list_del_entry_valid(entry))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	__list_del(entry-&gt;prev, entry-&gt;next);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_del</span><span class="params">(struct list_head *entry)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	__list_del_entry(entry);</span><br><span class="line">	entry-&gt;next = LIST_POISON1;</span><br><span class="line">	entry-&gt;prev = LIST_POISON2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="如何找到宿主结构体的位置"><a href="#如何找到宿主结构体的位置" class="headerlink" title="如何找到宿主结构体的位置"></a>如何找到宿主结构体的位置</h4><p>当我们拥有宿主结构体的时候，可以轻易的找到list_head结构体的位置，因为宿主结构体有list_head结构体的指针。那么如何从一个list_head找到宿主结构体。拿一个简单的2.x版本来解释，<code>(type *)0</code>指的是一个虚拟出来的结构首地址，把0换成任何数都行，如果换成0xff那么就要在结尾-0xff，然后用ptr减去偏移量就是宿主结构体开头的位置。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_entry(ptr,type,member) \</span></span><br><span class="line"><span class="meta">	((type*)((char *)ptr - (unsigned long)(&amp;((type *)0)-&gt;list)));</span></span><br></pre></td></tr></table></figure>
-
-<p>当然在4.19版本中，问题变得稍微复杂了一点，多出来了一个container_of函数。</p>
-<h4 id="container-of-ptr-type-member"><a href="#container-of-ptr-type-member" class="headerlink" title="container_of(ptr, type, member)"></a>container_of(ptr, type, member)</h4><p>这个宏用于获取 <code>ptr</code> 这个指针所指向的对象对应的宿主对象，例如刚才的list.h的文件中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * list_entry - get the struct for this entry</span></span><br><span class="line"><span class="comment"> * @ptr:	the &amp;struct list_head pointer.</span></span><br><span class="line"><span class="comment"> * @type:	the type of the struct this is embedded in.</span></span><br><span class="line"><span class="comment"> * @member:	the name of the list_head within the struct.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_entry(ptr, type, member) \</span></span><br><span class="line"><span class="meta">	container_of(ptr, type, member)</span></span><br></pre></td></tr></table></figure>
-
-<p>通过container_of函数我们能获得list所在的宿主结构体地址，具体的实现如下图：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * container_of - cast a member of a structure out to the containing structure</span></span><br><span class="line"><span class="comment"> * @ptr:	the pointer to the member.</span></span><br><span class="line"><span class="comment"> * @type:	the type of the container struct this is embedded in.</span></span><br><span class="line"><span class="comment"> * @member:	the name of the member within the struct.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> container_of(ptr, type, member) (&#123;				\</span></span><br><span class="line"><span class="meta">	void *__mptr = (void *)(ptr);					\</span></span><br><span class="line"><span class="meta">	BUILD_BUG_ON_MSG(!__same_type(*(ptr), ((type *)0)-&gt;member) &amp;&amp;	\</span></span><br><span class="line"><span class="meta">			 !__same_type(*(ptr), void),			\</span></span><br><span class="line"><span class="meta">			 <span class="meta-string">&quot;pointer type mismatch in container_of()&quot;</span>);	\</span></span><br><span class="line"><span class="meta">	((type *)(__mptr - offsetof(type, member))); &#125;) </span></span><br></pre></td></tr></table></figure>
-
-<p><code>__same_type</code> 顾名思义，就是判断是否类型一致。参考上面2.x的建议版本我们可以把它简化为如下的形式，在这里还涉及到了一个GUN的扩展：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">container_of(ptr, type, member) &#123;</span><br><span class="line">	<span class="keyword">void</span> *__mptr = (<span class="keyword">void</span> *)(ptr);</span><br><span class="line">	<span class="keyword">return</span> ((type *)(__mptr - offsetof(type, member)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>函数体第一行首先将 <code>ptr</code> 转换为任意类型指针，便于后续指针的算数运算；第二行运用到了另一个宏 <code>offsetof</code>（当编译器支持时，即等价于 <code>__compiler_offsetof</code>；其定义在 <code>/include/linux/stddef.h</code>），用于计算结构体某个变量相对于起始地址的偏移量。例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">foo</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">offsetof(struct foo, a); <span class="comment">// 0</span></span><br><span class="line">offsetof(struct foo, b); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>关于 <code>offsetof</code> 的定义</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// from: /include/linux/stddef.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __compiler_offsetof</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYPE, MEMBER)	__compiler_offsetof(TYPE, MEMBER)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYPE, MEMBER)	((size_t)&amp;((TYPE *)0)-&gt;MEMBER)    <span class="comment">// 0地址是非法地址没错，但是仅仅是限于不能进行访问操作。</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// from: /include/linux/compiler_types.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __compiler_offsetof(a, b)	__builtin_offsetof(a, b)</span></span><br></pre></td></tr></table></figure>
-
-<p><code>__builtin_offsetof</code> 实际上目前版本的 GCC 和 Clang 都支持。如果编译器不支持 <code>__builtin_offsetof</code>，则 <code>offsetof</code> 的实现 fallback 到程序员手动计算。在大部分编译器上，编译器内置实现和手动计算并无差异，都能实现编译时计算，但后者实际上并非确定的行为，即在某些编译器上，这个值也可能是运行时计算的<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1379298/offsetof-at-compile-time">🔗</a>，故 Linux 源代码提供了两种实现，没有直接 default 到手动计算。</p>
-</li>
-</ul>
-<h2 id="参考🔗"><a href="#参考🔗" class="headerlink" title="参考🔗"></a>参考🔗</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/324210723">https://zhuanlan.zhihu.com/p/324210723</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fortunely/p/13430735.html">https://www.cnblogs.com/fortunely/p/13430735.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1379298/offsetof-at-compile-time">https://stackoverflow.com/questions/1379298/offsetof-at-compile-time</a></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Blockchain</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/13/source-code-analysis/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2021/10/14/asm-study/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          《Linux源码分析》读书笔记（二）
-        
-      </div>
-    </a>
   
   
-    <a href="/2021/10/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-%E5%86%85%E6%A0%B8%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Linux 内核简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Intel-X86-CPU%E7%B3%BB%E5%88%97%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">Intel X86 CPU系列寻址方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#16%E4%BD%8DCPU%EF%BC%888086%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">16位CPU（8086）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32%E4%BD%8DCPU%EF%BC%8880386%E5%8F%8A%E4%BB%A5%E5%90%8E%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">32位CPU（80386及以后）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#i386%E7%9A%84%E5%88%86%E9%A1%B5%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">i386的分页内存管理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.1.</span> <span class="toc-text">小总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84C%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text">Linux中的C语言特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gcc%E7%89%B9%E6%80%A7"><span class="toc-number">1.4.1.</span> <span class="toc-text">gcc特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#packed"><span class="toc-number">1.4.1.0.1.</span> <span class="toc-text">packed</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#aligned%E4%B8%8E%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">1.4.1.0.2.</span> <span class="toc-text">aligned与结构体</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.2.</span> <span class="toc-text">通用数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%88%B0%E5%86%85%E6%A0%B8%E4%B8%AD%E7%9A%84%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">从一个简单双向链表到内核中的双向链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E5%AE%BF%E4%B8%BB%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">如何找到宿主结构体的位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#container-of-ptr-type-member"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">container_of(ptr, type, member)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%F0%9F%94%97"><span class="toc-number">1.5.</span> <span class="toc-text">参考🔗</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -527,8 +225,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
